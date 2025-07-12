@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "api-gateway"
+version = "0.0.1"
+description = "api-gateway for esclient"
+authors = ["esclient"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+ariadne = "^0.26.2"
+uvicorn = "^0.35.0"
+grpcio-tools = "^1.73.1"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
