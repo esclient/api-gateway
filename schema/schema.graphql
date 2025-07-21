@@ -1,13 +1,18 @@
 type Query {
-    test: Boolean
+    test: Boolean!
 }
 
 type Mutation {
     createComment(input: CreateCommentInput!): ID!
+    editComment(input: EditCommentInput!): Boolean!
 }
 
 input CreateCommentInput {
     mod_id: Int!
     author_id: Int!
+    text: String!
+}
+input EditCommentInput {
+    comment_id: Int!
     text: String!
 }
