@@ -15,6 +15,5 @@ input CreateCommentInput {
 
 input DeleteCommentInput {
     comment_id: Int!
-    success: Boolean!
 }
 
