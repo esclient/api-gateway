@@ -1,3 +1,5 @@
+include .env
+
 COMMENT_PROTO_TAG ?= v0.0.8
 COMMENT_PROTO_NAME := comment.proto
 
@@ -48,3 +50,14 @@ gen-stubs: fetch-proto
 	$(FIX_IMPORTS)
 
 update: gen-stubs clean
+
+docker-build:
+	docker build --build-arg PORT=$(PORT) -t gateway-dev .
+
+run: docker-build
+	docker run --rm -it \
+		--env-file .env \
+		-p $(PORT):$(PORT) \
+		-v $(CURDIR):/app \
+		-e WATCHFILES_FORCE_POLLING=true \
+		gateway-dev

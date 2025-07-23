@@ -3,10 +3,10 @@ from ariadne import make_executable_schema, load_schema_from_path, snake_case_fa
 from ariadne.explorer import ExplorerGraphiQL
 from ariadne.asgi import GraphQL
 
-type_defs = load_schema_from_path("schema/schema.graphql")
+type_defs = load_schema_from_path("src/gateway/schema/schema.graphql")
 
-from resolvers.mutation_resolver import mutation
-from resolvers.query_resolver import query
+from gateway.resolvers.mutation_resolver import mutation
+from gateway.resolvers.query_resolver import query
 
 schema = make_executable_schema(
     type_defs,
@@ -23,7 +23,7 @@ app = GraphQL(
 
 if __name__ == "__main__":
     uvicorn.run(
-        "gateway:app",
+        "gateway.server:app",
         host="0.0.0.0",
         port=8000,
         reload=True,
