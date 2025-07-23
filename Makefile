@@ -1,10 +1,13 @@
 COMMENT_PROTO_TAG ?= v0.0.8
 COMMENT_PROTO_NAME := comment.proto
 
+USER_PROTO_TAG ?= v0.0.8
+USER_PROTO_NAME := user.proto
+
+PROTO_REPO := https://raw.githubusercontent.com/esclient/protos
+
 TMP_DIR := .proto
 OUT_DIR := stubs
-
-.PHONY: clean fetch-proto gen-stubs update
 
 ifeq ($(OS),Windows_NT)
 MKDIR    = powershell -Command "New-Item -ItemType Directory -Force -Path"
@@ -29,22 +32,27 @@ FIX_IMPORTS = \
     done
 endif
 
+.PHONY: clean
+
+$(TMP_DIR) $(OUT_DIR):
+	$(MKDIR) "$@"
+
+$(TMP_DIR)/$(COMMENT_PROTO_NAME): | $(TMP_DIR)
+	$(DOWN) "$(PROTO_REPO)/$(COMMENT_PROTO_TAG)/$(COMMENT_PROTO_NAME)" $(DOWN_OUT) "$@"
+
+$(TMP_DIR)/$(USER_PROTO_NAME): | $(TMP_DIR)
+	$(DOWN) "$(PROTO_REPO)/$(USER_PROTO_TAG)/$(USER_PROTO_NAME)" $(DOWN_OUT) "$@"
+
 clean:
 	$(RM)
 
-fetch-proto:
-	$(MKDIR) "$(TMP_DIR)"
-	$(DOWN) "https://raw.githubusercontent.com/esclient/protos/$(COMMENT_PROTO_TAG)/$(COMMENT_PROTO_NAME)" $(DOWN_OUT) "$(TMP_DIR)/$(COMMENT_PROTO_NAME)"
-
-gen-stubs: fetch-proto
+update-%: $(TMP_DIR)/%.proto | $(OUT_DIR)
 	$(MKDIR) "$(OUT_DIR)"
 	poetry run python -m grpc_tools.protoc \
 		--proto_path="$(TMP_DIR)" \
 		--python_out="$(OUT_DIR)" \
 		--grpc_python_out="$(OUT_DIR)" \
 		--pyi_out="$(OUT_DIR)" \
-		"$(TMP_DIR)/$(COMMENT_PROTO_NAME)"
-
+		"$(TMP_DIR)/$*.proto"
 	$(FIX_IMPORTS)
-
-update: gen-stubs clean
+	$(MAKE) clean
