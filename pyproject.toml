@@ -1,20 +1,18 @@
-[tool.poetry]
+[tool.pdm]
+distribution = false
+
+[project]
 name = "api-gateway"
 version = "0.0.1"
 description = "api-gateway for esclient"
-package-mode = false
-authors = ["esclient"]
+authors = [
+    {name = "esclient"},
+]
+dependencies = [
+    "ariadne<1.0.0,>=0.26.2",
+    "uvicorn<1.0.0,>=0.35.0",
+    "grpcio-tools<2.0.0,>=1.73.1",
+]
+requires-python = "<4.0,>=3.10"
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.10"
-ariadne = "^0.26.2"
-uvicorn = "^0.35.0"
-grpcio-tools = "^1.73.1"
-
-[tool.poetry.scripts]
-run-server = "commentservice.server:serve"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+license = {text = "MIT"}

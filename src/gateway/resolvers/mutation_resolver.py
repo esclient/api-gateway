@@ -1,7 +1,7 @@
 from ariadne import MutationType
-from clients.comment import create_comment_rpc
-from clients.comment import edit_comment_rpc
-from clients.comment import delete_comment_rpc
+from gateway.clients.comment import create_comment_rpc
+from gateway.clients.comment import edit_comment_rpc
+from gateway.clients.comment import delete_comment_rpc
 mutation = MutationType()
 
 @mutation.field("createComment")
