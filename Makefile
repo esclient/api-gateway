@@ -1,4 +1,4 @@
-COMMENT_PROTO_TAG ?= v0.0.1
+COMMENT_PROTO_TAG ?= v0.0.8
 COMMENT_PROTO_NAME := comment.proto
 
 TMP_DIR := .proto

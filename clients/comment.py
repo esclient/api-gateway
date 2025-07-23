@@ -7,3 +7,7 @@ _stub = stubs.comment_pb2_grpc.CommentServiceStub(_channel)
 def create_comment_rpc(mod_id: int, author_id: int, text: str) -> stubs.comment_pb2.CreateCommentResponse:
     req = stubs.comment_pb2.CreateCommentRequest(mod_id=mod_id, author_id=author_id, text=text)
     return _stub.CreateComment(req)
+
+def delete_comment_rpc(comment_id: int) -> stubs.comment_pb2.DeleteCommentResponse:
+    req = stubs.comment_pb2.DeleteCommentRequest(comment_id = comment_id)
+    return _stub.DeleteComment(req)
