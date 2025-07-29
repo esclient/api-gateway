@@ -1,5 +1,5 @@
 type Query {
-    getComments: [Comment]
+    getComments(input: GetCommentsInput!): [Comment]
 }
 
 type Comment {
@@ -13,6 +13,10 @@ type Mutation {
     createComment(input: CreateCommentInput!): ID!
     editComment(input: EditCommentInput!): Boolean!
     deleteComment(input: DeleteCommentInput!): Boolean!
+}
+
+input GetCommentsInput {
+    mod_id: ID!
 }
 
 input CreateCommentInput {
@@ -29,4 +33,5 @@ input EditCommentInput {
 input DeleteCommentInput {
     comment_id: Int!
 }
+
 
