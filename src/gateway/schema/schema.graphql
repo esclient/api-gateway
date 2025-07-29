@@ -1,5 +1,12 @@
 type Query {
-    test: Boolean!
+    getComments: [Comment]
+}
+
+type Comment {
+    id: ID!
+    author_id: ID!
+    text: String!
+    created_at: Int!
 }
 
 type Mutation {
@@ -22,3 +29,4 @@ input EditCommentInput {
 input DeleteCommentInput {
     comment_id: Int!
 }
+
