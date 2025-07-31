@@ -12,8 +12,9 @@ def resolve_get_comments(_, info, input):
             "id": item.id,
             "text": item.text,
             "author_id": item.author_id,
-            "created_at": item.created_at
-
+            "created_at": item.created_at,
+            "edited_at": item.edited_at if item.edited_at != 0 else None
+            
         }
         for item in resp.comments
     ]
