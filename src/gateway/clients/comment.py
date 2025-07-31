@@ -12,7 +12,7 @@ def edit_comment_rpc(
     comment_id: int, text: str
 ) -> gateway.stubs.comment_pb2.EditCommentResponse:
     req = gateway.stubs.comment_pb2.EditCommentRequest(
-        comment_id_id=comment_id, text=text
+        comment_id=comment_id, text=text
     )
     return _stub.EditComment(req)
 
