@@ -6,6 +6,9 @@ COMMENT_PROTO_NAME := comment.proto
 USER_PROTO_TAG ?= v0.0.8
 USER_PROTO_NAME := user.proto
 
+RATING_PROTO_TAG ?= v0.0.14
+RATING_PROTO_NAME := rating.proto
+
 PROTO_REPO := https://raw.githubusercontent.com/esclient/protos
 
 TMP_DIR := .proto
@@ -45,12 +48,16 @@ $(TMP_DIR)/$(COMMENT_PROTO_NAME): | $(TMP_DIR)
 $(TMP_DIR)/$(USER_PROTO_NAME): | $(TMP_DIR)
 	$(DOWN) "$(PROTO_REPO)/$(USER_PROTO_TAG)/$(USER_PROTO_NAME)" $(DOWN_OUT) "$@"
 
+$(TMP_DIR)/$(RATING_PROTO_NAME): | $(TMP_DIR)
+	$(DOWN) "$(PROTO_REPO)/$(RATING_PROTO_TAG)/$(RATING_PROTO_NAME)" $(DOWN_OUT) "$@"
+
+
 clean:
 	$(RM)
 
 update-%: $(TMP_DIR)/%.proto | $(OUT_DIR)
 	$(MKDIR) "$(OUT_DIR)"
-	poetry run python -m grpc_tools.protoc \
+	pdm run python -m grpc_tools.protoc \
 		--proto_path="$(TMP_DIR)" \
 		--python_out="$(OUT_DIR)" \
 		--grpc_python_out="$(OUT_DIR)" \
@@ -69,3 +76,5 @@ run: docker-build
 		-v $(CURDIR):/app \
 		-e WATCHFILES_FORCE_POLLING=true \
 		gateway-dev
+
+
