@@ -6,7 +6,7 @@ COMMENT_PROTO_NAME := comment.proto
 USER_PROTO_TAG ?= v0.0.8
 USER_PROTO_NAME := user.proto
 
-RATING_PROTO_TAG ?= v0.0.14
+RATING_PROTO_TAG ?= v0.0.15
 RATING_PROTO_NAME := rating.proto
 
 PROTO_REPO := https://raw.githubusercontent.com/esclient/protos

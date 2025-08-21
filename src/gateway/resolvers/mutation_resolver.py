@@ -20,7 +20,7 @@ def resolve_delete_comment(_, info, input):
     resp = delete_comment_rpc(input["comment_id"])
     return bool(resp.success)
 
-@mutation.field("addrate")
+@mutation.field("addRate")
 def resolve_add_rate(_, info, input):
     resp = rate_mod_rpc(input["mod_id"], input["author_id"], input["rate"])
     return str(resp.rate_id)
