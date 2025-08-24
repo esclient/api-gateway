@@ -14,6 +14,22 @@ type Mutation {
     createComment(input: CreateCommentInput!): ID!
     editComment(input: EditCommentInput!): Boolean!
     deleteComment(input: DeleteCommentInput!): Boolean!
+    addRate(input: AddRateInput!): ID!
+}
+
+enum Rate {
+    RATE_UNSPECIFIED = 0;
+    RATE_1 = 1;
+    RATE_2 = 2;
+    RATE_3 = 3;
+    RATE_4 = 4;
+    RATE_5 = 5;
+}
+
+input AddRateInput {
+    mod_id: ID!
+    author_id: ID!
+    rate: Rate!
 }
 
 input GetCommentsInput {
