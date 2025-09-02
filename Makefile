@@ -9,6 +9,9 @@ USER_PROTO_NAME := user.proto
 RATING_PROTO_TAG ?= v0.0.15
 RATING_PROTO_NAME := rating.proto
 
+MOD_PROTO_TAG ?= v0.0.18
+MOD_PROTO_NAME := mod.proto
+
 PROTO_REPO := https://raw.githubusercontent.com/esclient/protos
 
 TMP_DIR := .proto
@@ -50,6 +53,9 @@ $(TMP_DIR)/$(USER_PROTO_NAME): | $(TMP_DIR)
 
 $(TMP_DIR)/$(RATING_PROTO_NAME): | $(TMP_DIR)
 	$(DOWN) "$(PROTO_REPO)/$(RATING_PROTO_TAG)/$(RATING_PROTO_NAME)" $(DOWN_OUT) "$@"
+
+$(TMP_DIR)/$(MOD_PROTO_NAME): | $(TMP_DIR)
+	$(DOWN) "$(PROTO_REPO)/$(MOD_PROTO_TAG)/$(MOD_PROTO_NAME)" $(DOWN_OUT) "$@"
 
 
 clean:

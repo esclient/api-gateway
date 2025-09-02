@@ -10,20 +10,27 @@ type Comment {
     edited_at: Int
 }
 
+type CreateModPayload {
+    mod_id: ID!
+    upload_url: String!
+    s: String!
+}
+
 type Mutation {
     createComment(input: CreateCommentInput!): ID!
     editComment(input: EditCommentInput!): Boolean!
     deleteComment(input: DeleteCommentInput!): Boolean!
     addRate(input: AddRateInput!): ID!
+    createMod(input: CreateModInput!): CreateModPayload!
 }
 
 enum Rate {
-    RATE_UNSPECIFIED = 0;
-    RATE_1 = 1;
-    RATE_2 = 2;
-    RATE_3 = 3;
-    RATE_4 = 4;
-    RATE_5 = 5;
+    RATE_UNSPECIFIED
+    RATE_1
+    RATE_2
+    RATE_3
+    RATE_4
+    RATE_5
 }
 
 input AddRateInput {
@@ -49,6 +56,13 @@ input EditCommentInput {
 
 input DeleteCommentInput {
     comment_id: Int!
+}
+
+input CreateModInput {
+    mod_title: String!
+    author_id: Int!
+    filename: String!
+    description: String!
 }
 
 
