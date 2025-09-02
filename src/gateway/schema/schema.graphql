@@ -13,7 +13,7 @@ type Comment {
 type CreateModPayload {
     mod_id: ID!
     upload_url: String!
-    s: String!
+    s3_key: String!
 }
 
 type Mutation {

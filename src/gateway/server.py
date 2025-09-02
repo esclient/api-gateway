@@ -12,7 +12,6 @@ schema = make_executable_schema(
     type_defs,
     query,
     mutation,
-    snake_case_fallback_resolvers,
 )
 
 app = GraphQL(

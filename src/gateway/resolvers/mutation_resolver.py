@@ -34,9 +34,9 @@ def resolve_create_mod(_, info, input):
         input["filename"],
         input["description"]
     )
-    print(resp.s3_key)
+
     return {
-        "mod_id": str(resp.mod_id),      # Use resp.mod_id not resp["mod_id"]
-        "s": resp.s3_key,           # Use resp.s3_key not resp["s3_key"] 
-        "upload_url": resp.upload_url    # Use resp.upload_url not resp["upload_url"]
+        "mod_id": str(resp.mod_id),
+        "s3_key": resp.s3_key,
+        "upload_url": resp.upload_url
     }
