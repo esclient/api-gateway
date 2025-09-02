@@ -3,6 +3,7 @@ from gateway.clients.comment import create_comment_rpc
 from gateway.clients.comment import edit_comment_rpc
 from gateway.clients.comment import delete_comment_rpc
 from gateway.clients.rating import rate_mod_rpc
+from gateway.clients.mod import create_mod_rpc
 mutation = MutationType()
 
 @mutation.field("createComment")
@@ -24,3 +25,18 @@ def resolve_delete_comment(_, info, input):
 def resolve_add_rate(_, info, input):
     resp = rate_mod_rpc(input["mod_id"], input["author_id"], input["rate"])
     return str(resp.rate_id)
+
+@mutation.field("createMod")
+def resolve_create_mod(_, info, input):
+    resp = create_mod_rpc(
+        input["mod_title"],
+        input["author_id"],
+        input["filename"],
+        input["description"]
+    )
+
+    return {
+        "mod_id": str(resp.mod_id),
+        "s3_key": resp.s3_key,
+        "upload_url": resp.upload_url
+    }
