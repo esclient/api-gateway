@@ -4,6 +4,9 @@ from gateway.clients.comment import edit_comment_rpc
 from gateway.clients.comment import delete_comment_rpc
 from gateway.clients.rating import rate_mod_rpc
 from gateway.clients.mod import create_mod_rpc
+from gateway.clients.mod import confirm_upload_rpc
+
+
 mutation = MutationType()
 
 @mutation.field("createComment")
@@ -40,3 +43,11 @@ def resolve_create_mod(_, info, input):
         "s3_key": resp.s3_key,
         "upload_url": resp.upload_url
     }
+
+@mutation.field("confirmUpload")
+def resolve_upload_mod(_, info, input):
+    resp = confirm_upload_rpc(
+        int(input["mod_id"])
+    )
+
+    return resp.success
