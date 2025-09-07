@@ -45,7 +45,7 @@ def resolve_create_mod(_, info, input):
     }
 
 @mutation.field("confirmUpload")
-def resolve_upload_mod(_, info, input):
+def resolve_confirm_upload_mod(_, info, input):
     resp = confirm_upload_rpc(
         int(input["mod_id"])
     )
