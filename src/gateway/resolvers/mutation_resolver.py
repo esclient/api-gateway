@@ -4,7 +4,7 @@ from gateway.clients.comment import edit_comment_rpc
 from gateway.clients.comment import delete_comment_rpc
 from gateway.clients.rating import rate_mod_rpc
 from gateway.clients.mod import create_mod_rpc
-from gateway.clients.mod import confirm_upload_rpc
+from gateway.clients.mod import set_status_mod_rpc
 
 
 mutation = MutationType()
@@ -44,10 +44,11 @@ def resolve_create_mod(_, info, input):
         "upload_url": resp.upload_url
     }
 
-@mutation.field("confirmUpload")
-def resolve_confirm_upload_mod(_, info, input):
-    resp = confirm_upload_rpc(
-        int(input["mod_id"])
+@mutation.field("setStatus")
+def resolve_set_status_mod(_, info, input):
+    resp = set_status_mod_rpc(
+        int(input["mod_id"]),
+        input["status"]
     )
 
     return resp.success
