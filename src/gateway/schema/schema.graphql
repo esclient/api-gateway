@@ -76,4 +76,3 @@ input CreateModInput {
 input SetStatusInput {
     mod_id: ID!
     status: ModStatus!
-}
