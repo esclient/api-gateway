@@ -22,6 +22,7 @@ type Mutation {
     deleteComment(input: DeleteCommentInput!): Boolean!
     addRate(input: AddRateInput!): ID!
     createMod(input: CreateModInput!): CreateModPayload!
+    confirmUpload(input: ConfirmUploadModInput!): Boolean!
 }
 
 enum Rate {
@@ -65,4 +66,6 @@ input CreateModInput {
     description: String!
 }
 
-
+input ConfirmUploadModInput {
+    mod_id: ID!
+}
