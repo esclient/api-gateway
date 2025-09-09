@@ -13,7 +13,6 @@ class Rate(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     RATE_3: _ClassVar[Rate]
     RATE_4: _ClassVar[Rate]
     RATE_5: _ClassVar[Rate]
-
 RATE_UNSPECIFIED: Rate
 RATE_1: Rate
 RATE_2: Rate
@@ -29,12 +28,7 @@ class RateModRequest(_message.Message):
     mod_id: int
     author_id: int
     rate: Rate
-    def __init__(
-        self,
-        mod_id: _Optional[int] = ...,
-        author_id: _Optional[int] = ...,
-        rate: _Optional[_Union[Rate, str]] = ...,
-    ) -> None: ...
+    def __init__(self, mod_id: _Optional[int] = ..., author_id: _Optional[int] = ..., rate: _Optional[_Union[Rate, str]] = ...) -> None: ...
 
 class RateModResponse(_message.Message):
     __slots__ = ("rate_id",)
@@ -56,9 +50,4 @@ class GetRatesResponse(_message.Message):
     rates_total: int
     likes: int
     dislikes: int
-    def __init__(
-        self,
-        rates_total: _Optional[int] = ...,
-        likes: _Optional[int] = ...,
-        dislikes: _Optional[int] = ...,
-    ) -> None: ...
+    def __init__(self, rates_total: _Optional[int] = ..., likes: _Optional[int] = ..., dislikes: _Optional[int] = ...) -> None: ...

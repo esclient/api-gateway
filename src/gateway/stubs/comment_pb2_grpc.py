@@ -5,26 +5,23 @@ import warnings
 
 from . import comment_pb2 as comment__pb2
 
-GRPC_GENERATED_VERSION = "1.73.1"
+GRPC_GENERATED_VERSION = '1.73.1'
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
 try:
     from grpc._utilities import first_version_is_lower
-
-    _version_not_supported = first_version_is_lower(
-        GRPC_VERSION, GRPC_GENERATED_VERSION
-    )
+    _version_not_supported = first_version_is_lower(GRPC_VERSION, GRPC_GENERATED_VERSION)
 except ImportError:
     _version_not_supported = True
 
 if _version_not_supported:
     raise RuntimeError(
-        f"The grpc package installed is at version {GRPC_VERSION},"
-        + f" but the generated code in comment_pb2_grpc.py depends on"
-        + f" grpcio>={GRPC_GENERATED_VERSION}."
-        + f" Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}"
-        + f" or downgrade your generated code using grpcio-tools<={GRPC_VERSION}."
+        f'The grpc package installed is at version {GRPC_VERSION},'
+        + f' but the generated code in comment_pb2_grpc.py depends on'
+        + f' grpcio>={GRPC_GENERATED_VERSION}.'
+        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
+        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
@@ -38,29 +35,25 @@ class CommentServiceStub(object):
             channel: A grpc.Channel.
         """
         self.CreateComment = channel.unary_unary(
-            "/comment.CommentService/CreateComment",
-            request_serializer=comment__pb2.CreateCommentRequest.SerializeToString,
-            response_deserializer=comment__pb2.CreateCommentResponse.FromString,
-            _registered_method=True,
-        )
+                '/comment.CommentService/CreateComment',
+                request_serializer=comment__pb2.CreateCommentRequest.SerializeToString,
+                response_deserializer=comment__pb2.CreateCommentResponse.FromString,
+                _registered_method=True)
         self.GetComments = channel.unary_unary(
-            "/comment.CommentService/GetComments",
-            request_serializer=comment__pb2.GetCommentsRequest.SerializeToString,
-            response_deserializer=comment__pb2.GetCommentsResponse.FromString,
-            _registered_method=True,
-        )
+                '/comment.CommentService/GetComments',
+                request_serializer=comment__pb2.GetCommentsRequest.SerializeToString,
+                response_deserializer=comment__pb2.GetCommentsResponse.FromString,
+                _registered_method=True)
         self.DeleteComment = channel.unary_unary(
-            "/comment.CommentService/DeleteComment",
-            request_serializer=comment__pb2.DeleteCommentRequest.SerializeToString,
-            response_deserializer=comment__pb2.DeleteCommentResponse.FromString,
-            _registered_method=True,
-        )
+                '/comment.CommentService/DeleteComment',
+                request_serializer=comment__pb2.DeleteCommentRequest.SerializeToString,
+                response_deserializer=comment__pb2.DeleteCommentResponse.FromString,
+                _registered_method=True)
         self.EditComment = channel.unary_unary(
-            "/comment.CommentService/EditComment",
-            request_serializer=comment__pb2.EditCommentRequest.SerializeToString,
-            response_deserializer=comment__pb2.EditCommentResponse.FromString,
-            _registered_method=True,
-        )
+                '/comment.CommentService/EditComment',
+                request_serializer=comment__pb2.EditCommentRequest.SerializeToString,
+                response_deserializer=comment__pb2.EditCommentResponse.FromString,
+                _registered_method=True)
 
 
 class CommentServiceServicer(object):
@@ -69,79 +62,76 @@ class CommentServiceServicer(object):
     def CreateComment(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def GetComments(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def DeleteComment(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def EditComment(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
 
 def add_CommentServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        "CreateComment": grpc.unary_unary_rpc_method_handler(
-            servicer.CreateComment,
-            request_deserializer=comment__pb2.CreateCommentRequest.FromString,
-            response_serializer=comment__pb2.CreateCommentResponse.SerializeToString,
-        ),
-        "GetComments": grpc.unary_unary_rpc_method_handler(
-            servicer.GetComments,
-            request_deserializer=comment__pb2.GetCommentsRequest.FromString,
-            response_serializer=comment__pb2.GetCommentsResponse.SerializeToString,
-        ),
-        "DeleteComment": grpc.unary_unary_rpc_method_handler(
-            servicer.DeleteComment,
-            request_deserializer=comment__pb2.DeleteCommentRequest.FromString,
-            response_serializer=comment__pb2.DeleteCommentResponse.SerializeToString,
-        ),
-        "EditComment": grpc.unary_unary_rpc_method_handler(
-            servicer.EditComment,
-            request_deserializer=comment__pb2.EditCommentRequest.FromString,
-            response_serializer=comment__pb2.EditCommentResponse.SerializeToString,
-        ),
+            'CreateComment': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateComment,
+                    request_deserializer=comment__pb2.CreateCommentRequest.FromString,
+                    response_serializer=comment__pb2.CreateCommentResponse.SerializeToString,
+            ),
+            'GetComments': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetComments,
+                    request_deserializer=comment__pb2.GetCommentsRequest.FromString,
+                    response_serializer=comment__pb2.GetCommentsResponse.SerializeToString,
+            ),
+            'DeleteComment': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteComment,
+                    request_deserializer=comment__pb2.DeleteCommentRequest.FromString,
+                    response_serializer=comment__pb2.DeleteCommentResponse.SerializeToString,
+            ),
+            'EditComment': grpc.unary_unary_rpc_method_handler(
+                    servicer.EditComment,
+                    request_deserializer=comment__pb2.EditCommentRequest.FromString,
+                    response_serializer=comment__pb2.EditCommentResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        "comment.CommentService", rpc_method_handlers
-    )
+            'comment.CommentService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers("comment.CommentService", rpc_method_handlers)
+    server.add_registered_method_handlers('comment.CommentService', rpc_method_handlers)
 
 
-# This class is part of an EXPERIMENTAL API.
+ # This class is part of an EXPERIMENTAL API.
 class CommentService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def CreateComment(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def CreateComment(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/comment.CommentService/CreateComment",
+            '/comment.CommentService/CreateComment',
             comment__pb2.CreateCommentRequest.SerializeToString,
             comment__pb2.CreateCommentResponse.FromString,
             options,
@@ -152,26 +142,23 @@ class CommentService(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def GetComments(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def GetComments(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/comment.CommentService/GetComments",
+            '/comment.CommentService/GetComments',
             comment__pb2.GetCommentsRequest.SerializeToString,
             comment__pb2.GetCommentsResponse.FromString,
             options,
@@ -182,26 +169,23 @@ class CommentService(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def DeleteComment(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def DeleteComment(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/comment.CommentService/DeleteComment",
+            '/comment.CommentService/DeleteComment',
             comment__pb2.DeleteCommentRequest.SerializeToString,
             comment__pb2.DeleteCommentResponse.FromString,
             options,
@@ -212,26 +196,23 @@ class CommentService(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def EditComment(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def EditComment(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/comment.CommentService/EditComment",
+            '/comment.CommentService/EditComment',
             comment__pb2.EditCommentRequest.SerializeToString,
             comment__pb2.EditCommentResponse.FromString,
             options,
@@ -242,5 +223,4 @@ class CommentService(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
