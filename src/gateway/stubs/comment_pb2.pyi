@@ -18,7 +18,14 @@ class Comment(_message.Message):
     text: str
     created_at: int
     edited_at: int
-    def __init__(self, id: _Optional[int] = ..., author_id: _Optional[int] = ..., text: _Optional[str] = ..., created_at: _Optional[int] = ..., edited_at: _Optional[int] = ...) -> None: ...
+    def __init__(
+        self,
+        id: _Optional[int] = ...,
+        author_id: _Optional[int] = ...,
+        text: _Optional[str] = ...,
+        created_at: _Optional[int] = ...,
+        edited_at: _Optional[int] = ...,
+    ) -> None: ...
 
 class CreateCommentRequest(_message.Message):
     __slots__ = ("mod_id", "author_id", "text")
@@ -28,7 +35,12 @@ class CreateCommentRequest(_message.Message):
     mod_id: int
     author_id: int
     text: str
-    def __init__(self, mod_id: _Optional[int] = ..., author_id: _Optional[int] = ..., text: _Optional[str] = ...) -> None: ...
+    def __init__(
+        self,
+        mod_id: _Optional[int] = ...,
+        author_id: _Optional[int] = ...,
+        text: _Optional[str] = ...,
+    ) -> None: ...
 
 class CreateCommentResponse(_message.Message):
     __slots__ = ("comment_id",)
@@ -48,7 +60,11 @@ class GetCommentsResponse(_message.Message):
     COMMENTS_FIELD_NUMBER: _ClassVar[int]
     mod_id: int
     comments: _containers.RepeatedCompositeFieldContainer[Comment]
-    def __init__(self, mod_id: _Optional[int] = ..., comments: _Optional[_Iterable[_Union[Comment, _Mapping]]] = ...) -> None: ...
+    def __init__(
+        self,
+        mod_id: _Optional[int] = ...,
+        comments: _Optional[_Iterable[_Union[Comment, _Mapping]]] = ...,
+    ) -> None: ...
 
 class DeleteCommentRequest(_message.Message):
     __slots__ = ("comment_id",)
@@ -68,7 +84,9 @@ class EditCommentRequest(_message.Message):
     TEXT_FIELD_NUMBER: _ClassVar[int]
     comment_id: int
     text: str
-    def __init__(self, comment_id: _Optional[int] = ..., text: _Optional[str] = ...) -> None: ...
+    def __init__(
+        self, comment_id: _Optional[int] = ..., text: _Optional[str] = ...
+    ) -> None: ...
 
 class EditCommentResponse(_message.Message):
     __slots__ = ("success",)

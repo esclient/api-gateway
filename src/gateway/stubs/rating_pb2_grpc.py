@@ -5,23 +5,26 @@ import warnings
 
 from . import rating_pb2 as rating__pb2
 
-GRPC_GENERATED_VERSION = '1.74.0'
+GRPC_GENERATED_VERSION = "1.74.0"
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
 try:
     from grpc._utilities import first_version_is_lower
-    _version_not_supported = first_version_is_lower(GRPC_VERSION, GRPC_GENERATED_VERSION)
+
+    _version_not_supported = first_version_is_lower(
+        GRPC_VERSION, GRPC_GENERATED_VERSION
+    )
 except ImportError:
     _version_not_supported = True
 
 if _version_not_supported:
     raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},'
-        + f' but the generated code in rating_pb2_grpc.py depends on'
-        + f' grpcio>={GRPC_GENERATED_VERSION}.'
-        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
-        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
+        f"The grpc package installed is at version {GRPC_VERSION},"
+        + f" but the generated code in rating_pb2_grpc.py depends on"
+        + f" grpcio>={GRPC_GENERATED_VERSION}."
+        + f" Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}"
+        + f" or downgrade your generated code using grpcio-tools<={GRPC_VERSION}."
     )
 
 
@@ -35,15 +38,17 @@ class RatingServiceStub(object):
             channel: A grpc.Channel.
         """
         self.RateMod = channel.unary_unary(
-                '/rating.RatingService/RateMod',
-                request_serializer=rating__pb2.RateModRequest.SerializeToString,
-                response_deserializer=rating__pb2.RateModResponse.FromString,
-                _registered_method=True)
+            "/rating.RatingService/RateMod",
+            request_serializer=rating__pb2.RateModRequest.SerializeToString,
+            response_deserializer=rating__pb2.RateModResponse.FromString,
+            _registered_method=True,
+        )
         self.GetRates = channel.unary_unary(
-                '/rating.RatingService/GetRates',
-                request_serializer=rating__pb2.GetRatesRequest.SerializeToString,
-                response_deserializer=rating__pb2.GetRatesResponse.FromString,
-                _registered_method=True)
+            "/rating.RatingService/GetRates",
+            request_serializer=rating__pb2.GetRatesRequest.SerializeToString,
+            response_deserializer=rating__pb2.GetRatesResponse.FromString,
+            _registered_method=True,
+        )
 
 
 class RatingServiceServicer(object):
@@ -52,54 +57,57 @@ class RatingServiceServicer(object):
     def RateMod(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def GetRates(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
 
 def add_RatingServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'RateMod': grpc.unary_unary_rpc_method_handler(
-                    servicer.RateMod,
-                    request_deserializer=rating__pb2.RateModRequest.FromString,
-                    response_serializer=rating__pb2.RateModResponse.SerializeToString,
-            ),
-            'GetRates': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetRates,
-                    request_deserializer=rating__pb2.GetRatesRequest.FromString,
-                    response_serializer=rating__pb2.GetRatesResponse.SerializeToString,
-            ),
+        "RateMod": grpc.unary_unary_rpc_method_handler(
+            servicer.RateMod,
+            request_deserializer=rating__pb2.RateModRequest.FromString,
+            response_serializer=rating__pb2.RateModResponse.SerializeToString,
+        ),
+        "GetRates": grpc.unary_unary_rpc_method_handler(
+            servicer.GetRates,
+            request_deserializer=rating__pb2.GetRatesRequest.FromString,
+            response_serializer=rating__pb2.GetRatesResponse.SerializeToString,
+        ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'rating.RatingService', rpc_method_handlers)
+        "rating.RatingService", rpc_method_handlers
+    )
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('rating.RatingService', rpc_method_handlers)
+    server.add_registered_method_handlers("rating.RatingService", rpc_method_handlers)
 
 
- # This class is part of an EXPERIMENTAL API.
+# This class is part of an EXPERIMENTAL API.
 class RatingService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def RateMod(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def RateMod(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/rating.RatingService/RateMod',
+            "/rating.RatingService/RateMod",
             rating__pb2.RateModRequest.SerializeToString,
             rating__pb2.RateModResponse.FromString,
             options,
@@ -110,23 +118,26 @@ class RatingService(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def GetRates(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def GetRates(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/rating.RatingService/GetRates',
+            "/rating.RatingService/GetRates",
             rating__pb2.GetRatesRequest.SerializeToString,
             rating__pb2.GetRatesResponse.FromString,
             options,
@@ -137,4 +148,5 @@ class RatingService(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
