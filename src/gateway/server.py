@@ -1,5 +1,9 @@
 import uvicorn
-from ariadne import make_executable_schema, load_schema_from_path, snake_case_fallback_resolvers
+from ariadne import (
+    make_executable_schema,
+    load_schema_from_path,
+    snake_case_fallback_resolvers,
+)
 from ariadne.explorer import ExplorerGraphiQL
 from ariadne.asgi import GraphQL
 

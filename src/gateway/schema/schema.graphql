@@ -1,5 +1,6 @@
 type Query {
     getComments(input: GetCommentsInput!): [Comment]
+    getModDownloadLink(input: GetModDownloadLinkInput): String!
 }
 
 type Comment {
@@ -76,4 +77,8 @@ input CreateModInput {
 input SetStatusInput {
     mod_id: ID!
     status: ModStatus!
+}
+
+input getModDownloadLinkInput {
+    mod_id: Int!
 }
