@@ -1,0 +1,7 @@
+type ModQuery {
+    getModDownloadLink(input: getModDownloadLinkInput!): String!
+}
+
+input getModDownloadLinkInput {
+    mod_id: Int!
+}

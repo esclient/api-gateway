@@ -1,16 +1,3 @@
-type Query {
-    getComments(input: GetCommentsInput!): [Comment]
-    getModDownloadLink(input: getModDownloadLinkInput!): String!
-}
-
-type Comment {
-    id: ID!
-    author_id: ID!
-    text: String!
-    created_at: Int!
-    edited_at: Int
-}
-
 type CreateModPayload {
     mod_id: ID!
     upload_url: String!
@@ -48,10 +35,6 @@ input AddRateInput {
     rate: Rate!
 }
 
-input GetCommentsInput {
-    mod_id: ID!
-}
-
 input CreateCommentInput {
     mod_id: Int!
     author_id: Int!
@@ -77,8 +60,4 @@ input CreateModInput {
 input SetStatusInput {
     mod_id: ID!
     status: ModStatus!
-}
-
-input getModDownloadLinkInput {
-    mod_id: Int!
 }

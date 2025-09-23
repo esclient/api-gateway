@@ -1,0 +1,16 @@
+type CommentQuery {
+    getComments(input: GetCommentsInput!): [Comment]
+}
+
+type Comment {
+    id: ID!
+    author_id: ID!
+    text: String!
+    created_at: Int!
+    edited_at: Int
+}
+
+input GetCommentsInput {
+    mod_id: ID!
+}
+
