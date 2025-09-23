@@ -12,6 +12,8 @@ dependencies = [
     "ariadne<1.0.0,>=0.26.2",
     "uvicorn<1.0.0,>=0.35.0",
     "grpcio-tools>=1.74.0",
+    "pydantic>=2.11.9",
+    "pydantic-settings>=2.10.1",
 ]
 requires-python = "<4.0,>=3.10"
 readme = "README.md"

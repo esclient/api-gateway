@@ -1,4 +1,4 @@
-include .env
+-include .env
 
 COMMENT_PROTO_TAG ?= v0.0.8
 COMMENT_PROTO_NAME := comment.proto
@@ -73,7 +73,7 @@ update-%: $(TMP_DIR)/%.proto | $(OUT_DIR)
 	$(MAKE) clean
 
 docker-build:
-	docker build --build-arg PORT=$(PORT) -t gateway-dev .
+	docker build --build-arg PORT=$(PORT) -t gateway .
 
 run: docker-build
 	docker run --rm -it \
@@ -81,6 +81,4 @@ run: docker-build
 		-p $(PORT):$(PORT) \
 		-v $(CURDIR):/app \
 		-e WATCHFILES_FORCE_POLLING=true \
-		gateway-dev
-
-
+		gateway

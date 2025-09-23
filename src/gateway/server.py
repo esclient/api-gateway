@@ -7,11 +7,12 @@ from gateway.resolvers.mutation_resolver import mutation
 from gateway.resolvers.query.root import query
 from gateway.resolvers.query.comment import comment_query
 from gateway.resolvers.query.mod import mod_query
+from gateway.settings import Settings
 
-type_defs = load_schema_from_path("src/gateway/schema")
+settings = Settings()
 
 schema = make_executable_schema(
-    type_defs,
+    load_schema_from_path("src/gateway/schema"),
     query,
     comment_query,
     mod_query,
@@ -27,7 +28,7 @@ app = GraphQL(
 if __name__ == "__main__":
     uvicorn.run(
         "gateway.server:app",
-        host="0.0.0.0",
-        port=8000,
+        host=settings.host,
+        port=settings.port,
         reload=True,
     )
