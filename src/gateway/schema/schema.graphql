@@ -13,6 +13,11 @@ type Mutation {
     setStatus(input: SetStatusInput!): Boolean!
 }
 
+type Query {
+    comment: CommentQuery
+    mod: ModQuery
+}
+
 enum Rate {
     RATE_UNSPECIFIED
     RATE_1

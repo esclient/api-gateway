@@ -1,11 +1,9 @@
-from ariadne import QueryType
+from ariadne import ObjectType
 from gateway.clients.comment import get_comments_rpc
-from gateway.clients.mod import get_mod_download_link_rpc
 
-query = QueryType()
+comment_query = ObjectType("CommentQuery")
 
-
-@query.field("getComments")
+@comment_query.field("getComments")
 def resolve_get_comments(_, info, input):
     resp = get_comments_rpc(int(input["mod_id"]))
     return [
@@ -18,9 +16,3 @@ def resolve_get_comments(_, info, input):
         }
         for item in resp.comments
     ]
-
-
-@query.field("getModDownloadLink")
-def resolve_get_mod_download_link(_, info, input):
-    resp = get_mod_download_link_rpc(int(input["mod_id"]))
-    return resp.link_url
