@@ -1,16 +1,3 @@
-type Query {
-    getComments(input: GetCommentsInput!): [Comment]
-    getModDownloadLink(input: getModDownloadLinkInput!): String!
-}
-
-type Comment {
-    id: ID!
-    author_id: ID!
-    text: String!
-    created_at: Int!
-    edited_at: Int
-}
-
 type CreateModPayload {
     mod_id: ID!
     upload_url: String!
@@ -24,6 +11,11 @@ type Mutation {
     addRate(input: AddRateInput!): ID!
     createMod(input: CreateModInput!): CreateModPayload!
     setStatus(input: SetStatusInput!): Boolean!
+}
+
+type Query {
+    comment: CommentQuery
+    mod: ModQuery
 }
 
 enum Rate {
@@ -46,10 +38,6 @@ input AddRateInput {
     mod_id: ID!
     author_id: ID!
     rate: Rate!
-}
-
-input GetCommentsInput {
-    mod_id: ID!
 }
 
 input CreateCommentInput {
@@ -77,8 +65,4 @@ input CreateModInput {
 input SetStatusInput {
     mod_id: ID!
     status: ModStatus!
-}
-
-input getModDownloadLinkInput {
-    mod_id: Int!
 }
