@@ -1,0 +1,14 @@
+import logging
+
+from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+    )
+
+    host: str = Field(validation_alias="HOST")
+    port: int = Field(validation_alias="PORT")

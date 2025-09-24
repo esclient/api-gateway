@@ -14,6 +14,4 @@ RUN pdm export --group dev --without-hashes -f requirements > /tmp/req.txt \
 COPY . .
 RUN pip install --no-cache-dir -e .
 
-ARG PORT
-
 CMD ["python", "-u", "-m", "gateway.server"]
