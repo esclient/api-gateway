@@ -9,7 +9,6 @@ from enum import Enum
 mod_mutation = ObjectType("ModMutation")
 
 class RateType(str, Enum):
-    """Define the possible rating values to match GraphQL Rate enum"""
     RATE_UNSPECIFIED = "RATE_UNSPECIFIED"
     RATE_1 = "RATE_1"
     RATE_2 = "RATE_2"
@@ -18,7 +17,6 @@ class RateType(str, Enum):
     RATE_5 = "RATE_5"
 
 class ModStatus(str, Enum):
-    """Define the possible mod status values to match GraphQL ModStatus enum"""
     MOD_STATUS_UNSPECIFIED = "MOD_STATUS_UNSPECIFIED"
     MOD_STATUS_UPLOADED = "MOD_STATUS_UPLOADED"
     MOD_STATUS_BANNED = "MOD_STATUS_BANNED"
@@ -41,7 +39,7 @@ class AddRateInput(BaseModel):
 @mod_mutation.field("addRate")
 def resolve_add_rate(_, info, input: AddRateInput) -> str:
     data = AddRateInput.model_validate(input)
-    resp = rate_mod_rpc(data.mod_id, data.author_id, data.rate.value)  # Use .value to get the actual value
+    resp = rate_mod_rpc(data.mod_id, data.author_id, data.rate.value) 
     return str(resp.rate_id)
 
 class CreateModInput(BaseModel):
