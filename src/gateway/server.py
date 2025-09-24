@@ -1,14 +1,14 @@
 import uvicorn
-from ariadne import make_executable_schema, load_schema_from_path
-from ariadne.explorer import ExplorerGraphiQL
+from ariadne import load_schema_from_path, make_executable_schema
 from ariadne.asgi import GraphQL
+from ariadne.explorer import ExplorerGraphiQL
 
-from gateway.resolvers.mutation.root import mutation
 from gateway.resolvers.mutation.comment import comment_mutation
 from gateway.resolvers.mutation.mod import mod_mutation
-from gateway.resolvers.query.root import query
+from gateway.resolvers.mutation.root import mutation
 from gateway.resolvers.query.comment import comment_query
 from gateway.resolvers.query.mod import mod_query
+from gateway.resolvers.query.root import query
 from gateway.settings import Settings
 
 settings = Settings()
@@ -22,7 +22,7 @@ schema = make_executable_schema(
     mod_query,
     mutation,
     comment_mutation,
-    mod_mutation
+    mod_mutation,
 )
 
 app = GraphQL(

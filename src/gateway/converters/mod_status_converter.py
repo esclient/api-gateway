@@ -1,11 +1,14 @@
-from gateway.stubs.mod_pb2 import ModStatus as ProtoMS
 from enum import Enum
+
+from gateway.stubs.mod_pb2 import ModStatus as ProtoMS
+
 
 class GraphQLModStatus(str, Enum):
     UNSPECIFIED = "MOD_STATUS_UNSPECIFIED"
     UPLOADED = "MOD_STATUS_UPLOADED"
     BANNED = "MOD_STATUS_BANNED"
     HIDDEN = "MOD_STATUS_HIDDEN"
+
 
 def graphql_to_proto_mod_status(graphql_value: str) -> int:
     mapping = {
@@ -14,7 +17,10 @@ def graphql_to_proto_mod_status(graphql_value: str) -> int:
         GraphQLModStatus.BANNED: ProtoMS.MOD_STATUS_BANNED,
         GraphQLModStatus.HIDDEN: ProtoMS.MOD_STATUS_HIDDEN,
     }
-    return mapping.get(graphql_value, ProtoMS.MOD_STATUS_UNSPECIFIED) #<Если получили непонятное значение. Пока пусть будет MOD_STATUS_UNSPECIFIED>#
+    return mapping.get(
+        graphql_value, ProtoMS.MOD_STATUS_UNSPECIFIED
+    )  # <Если получили непонятное значение. Пока пусть будет MOD_STATUS_UNSPECIFIED>#
+
 
 def proto_to_graphql_mod_status(proto_value: int) -> str:
     mapping = {

@@ -82,3 +82,20 @@ run: docker-build
 		-v $(CURDIR):/app \
 		-e WATCHFILES_FORCE_POLLING=true \
 		gateway
+
+format:
+	black .
+	isort .
+	ruff check . --fix
+
+lint:
+	black --check .
+	isort . --check --diff
+	flake8 .
+	ruff check .
+	mypy --strict .
+
+test:
+	pytest
+
+dev-check: format lint test

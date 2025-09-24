@@ -1,25 +1,31 @@
 import grpc
-import gateway.stubs.comment_pb2_grpc, gateway.stubs.comment_pb2
+
+import gateway.stubs.comment_pb2
+import gateway.stubs.comment_pb2_grpc
 
 _channel = grpc.insecure_channel("host.docker.internal:7777")
 _stub = gateway.stubs.comment_pb2_grpc.CommentServiceStub(_channel)
+
 
 def create_comment_rpc(mod_id: int, author_id: int, text: str) -> gateway.stubs.comment_pb2.CreateCommentResponse:
     req = gateway.stubs.comment_pb2.CreateCommentRequest(mod_id=mod_id, author_id=author_id, text=text)
     return _stub.CreateComment(req)
 
-def edit_comment_rpc(
-    comment_id: int, text: str
-) -> gateway.stubs.comment_pb2.EditCommentResponse:
-    req = gateway.stubs.comment_pb2.EditCommentRequest(
-        comment_id=comment_id, text=text
-    )
+
+def edit_comment_rpc(comment_id: int, text: str) -> gateway.stubs.comment_pb2.EditCommentResponse:
+    req = gateway.stubs.comment_pb2.EditCommentRequest(comment_id=comment_id, text=text)
     return _stub.EditComment(req)
 
-def delete_comment_rpc(comment_id: int) -> gateway.stubs.comment_pb2.DeleteCommentResponse:
-    req = gateway.stubs.comment_pb2.DeleteCommentRequest(comment_id = comment_id)
+
+def delete_comment_rpc(
+    comment_id: int,
+) -> gateway.stubs.comment_pb2.DeleteCommentResponse:
+    req = gateway.stubs.comment_pb2.DeleteCommentRequest(comment_id=comment_id)
     return _stub.DeleteComment(req)
 
-def get_comments_rpc(mod_id: int) -> gateway.stubs.comment_pb2.GetCommentsResponse:
-    req = gateway.stubs.comment_pb2.GetCommentsRequest(mod_id = mod_id)
+
+def get_comments_rpc(
+    mod_id: int,
+) -> gateway.stubs.comment_pb2.GetCommentsResponse:
+    req = gateway.stubs.comment_pb2.GetCommentsRequest(mod_id=mod_id)
     return _stub.GetComments(req)

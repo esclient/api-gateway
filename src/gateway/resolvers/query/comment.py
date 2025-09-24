@@ -1,7 +1,9 @@
 from ariadne import ObjectType
+from pydantic import BaseModel, field_validator
+
 from gateway.clients.comment import get_comments_rpc
 from gateway.helpers.id_helper import validate_and_convert_id
-from pydantic import BaseModel, field_validator
+
 
 class GetCommentsInput(BaseModel):
     mod_id: int
@@ -9,6 +11,7 @@ class GetCommentsInput(BaseModel):
     @field_validator("mod_id", mode="before")
     def _mod_id(cls, v):
         return validate_and_convert_id(v, "mod_id")
+
 
 class GetCommentsResult(BaseModel):
     id: int
@@ -21,7 +24,9 @@ class GetCommentsResult(BaseModel):
     def _edited_at(cls, v):
         return None if v == 0 else v
 
+
 comment_query = ObjectType("CommentQuery")
+
 
 @comment_query.field("getComments")
 def resolve_get_comments(_, info, input: GetCommentsInput):

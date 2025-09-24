@@ -1,7 +1,9 @@
 from ariadne import ObjectType
+from pydantic import BaseModel, field_validator
+
 from gateway.clients.mod import get_mod_download_link_rpc
 from gateway.helpers.id_helper import validate_and_convert_id
-from pydantic import BaseModel, field_validator
+
 
 class GetModDownloadLinkInput(BaseModel):
     mod_id: int
@@ -10,7 +12,9 @@ class GetModDownloadLinkInput(BaseModel):
     def _mod_id(cls, v):
         return validate_and_convert_id(v, "mod_id")
 
+
 mod_query = ObjectType("ModQuery")
+
 
 @mod_query.field("getModDownloadLink")
 def resolve_get_mod_download_link(_, info, input) -> str:
