@@ -4,7 +4,7 @@ type CreateModResult {
     s3_key: String!
 }
 
-type Mutation {
+extend type Mutation {
     addRate(input: AddRateInput!): ID!
     createMod(input: CreateModInput!): CreateModResult!
     setStatus(input: SetStatusInput!): Boolean!

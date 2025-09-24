@@ -21,7 +21,7 @@ class GetCommentsResult(BaseModel):
     def _edited_at(cls, v):
         return None if v == 0 else v
 
-comment_query = ObjectType("CommentQuery")
+comment_query = ObjectType("Query")
 
 @comment_query.field("getComments")
 def resolve_get_comments(_, info, input: GetCommentsInput):

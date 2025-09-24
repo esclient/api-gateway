@@ -1,4 +1,4 @@
-type Mutation {
+extend type Mutation {
     createComment(input: CreateCommentInput!): ID!
     editComment(input: EditCommentInput!): Boolean!
     deleteComment(input: DeleteCommentInput!): Boolean!
