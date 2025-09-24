@@ -1,68 +1,9 @@
-type CreateModResult {
-    mod_id: ID!
-    upload_url: String!
-    s3_key: String!
-}
-
 type Mutation {
-    createComment(input: CreateCommentInput!): ID!
-    editComment(input: EditCommentInput!): Boolean!
-    deleteComment(input: DeleteCommentInput!): Boolean!
-    addRate(input: AddRateInput!): ID!
-    createMod(input: CreateModInput!): CreateModResult!
-    setStatus(input: SetStatusInput!): Boolean!
+    comment: CommentMutation
+    mod: ModMutation
 }
 
 type Query {
     comment: CommentQuery
     mod: ModQuery
-}
-
-enum Rate {
-    RATE_UNSPECIFIED
-    RATE_1
-    RATE_2
-    RATE_3
-    RATE_4
-    RATE_5
-}
-
-enum ModStatus {
-    MOD_STATUS_UNSPECIFIED
-    MOD_STATUS_UPLOADED
-    MOD_STATUS_BANNED
-    MOD_STATUS_HIDDEN
-}
-
-input AddRateInput {
-    mod_id: ID!
-    author_id: ID!
-    rate: Rate!
-}
-
-input CreateCommentInput {
-    mod_id: ID!
-    author_id: ID!
-    text: String!
-}
-
-input EditCommentInput {
-    comment_id: ID!
-    text: String!
-}
-
-input DeleteCommentInput {
-    comment_id: ID!
-}
-
-input CreateModInput {
-    mod_title: String!
-    author_id: ID!
-    filename: String!
-    description: String!
-}
-
-input SetStatusInput {
-    mod_id: ID!
-    status: ModStatus!
 }

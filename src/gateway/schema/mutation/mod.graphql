@@ -1,0 +1,45 @@
+type CreateModResult {
+    mod_id: ID!
+    upload_url: String!
+    s3_key: String!
+}
+
+type ModMutation {
+    addRate(input: AddRateInput!): ID!
+    createMod(input: CreateModInput!): CreateModResult!
+    setStatus(input: SetStatusInput!): Boolean!
+}
+
+enum Rate {
+    RATE_UNSPECIFIED
+    RATE_1
+    RATE_2
+    RATE_3
+    RATE_4
+    RATE_5
+}
+
+enum ModStatus {
+    MOD_STATUS_UNSPECIFIED
+    MOD_STATUS_UPLOADED
+    MOD_STATUS_BANNED
+    MOD_STATUS_HIDDEN
+}
+
+input AddRateInput {
+    mod_id: ID!
+    author_id: ID!
+    rate: Rate!
+}
+
+input CreateModInput {
+    mod_title: String!
+    author_id: ID!
+    filename: String!
+    description: String!
+}
+
+input SetStatusInput {
+    mod_id: ID!
+    status: ModStatus!
+}

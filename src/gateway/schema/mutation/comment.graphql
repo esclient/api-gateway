@@ -1,0 +1,20 @@
+type CommentMutation {
+    createComment(input: CreateCommentInput!): ID!
+    editComment(input: EditCommentInput!): Boolean!
+    deleteComment(input: DeleteCommentInput!): Boolean!
+}
+
+input CreateCommentInput {
+    mod_id: ID!
+    author_id: ID!
+    text: String!
+}
+
+input EditCommentInput {
+    comment_id: ID!
+    text: String!
+}
+
+input DeleteCommentInput {
+    comment_id: ID!
+}
