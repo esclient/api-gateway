@@ -1,7 +1,9 @@
 type Mutation {
-    _empty: String
+    comment: CommentMutation
+    mod: ModMutation
 }
 
 type Query {
-    _empty: String
+    comment: CommentQuery
+    mod: ModQuery
 }

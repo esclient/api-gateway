@@ -1,4 +1,4 @@
-from ariadne import MutationType
+from ariadne import ObjectType
 from gateway.clients.comment import create_comment_rpc
 from gateway.clients.comment import edit_comment_rpc
 from gateway.clients.comment import delete_comment_rpc
@@ -6,7 +6,7 @@ from gateway.helpers.id_helper import validate_and_convert_id
 from pydantic import BaseModel, field_validator, ConfigDict
 
 
-comment_mutation = MutationType()
+comment_mutation = ObjectType("CommentMutation")
 
 class CreateCommentInput(BaseModel):
     mod_id: int

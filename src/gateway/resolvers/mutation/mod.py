@@ -1,4 +1,4 @@
-from ariadne import MutationType
+from ariadne import ObjectType
 from gateway.clients.rating import rate_mod_rpc
 from gateway.clients.mod import create_mod_rpc
 from gateway.clients.mod import set_status_mod_rpc
@@ -6,7 +6,7 @@ from gateway.helpers.id_helper import validate_and_convert_id
 from pydantic import BaseModel, field_validator, ConfigDict
 from enum import Enum
 
-mod_mutation = MutationType()
+mod_mutation = ObjectType("ModMutation")
 
 class RateType(str, Enum):
     """Define the possible rating values to match GraphQL Rate enum"""

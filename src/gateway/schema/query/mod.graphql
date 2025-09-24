@@ -1,4 +1,4 @@
-extend type Query {
+type ModQuery {
     getModDownloadLink(input: getModDownloadLinkInput!): String!
 }
 

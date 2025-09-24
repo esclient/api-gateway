@@ -1,4 +1,4 @@
-extend type Query {
+type CommentQuery {
     getComments(input: GetCommentsInput!): [Comment]
 }
 

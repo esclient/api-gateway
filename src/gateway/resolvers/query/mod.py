@@ -10,7 +10,7 @@ class GetModDownloadLinkInput(BaseModel):
     def _mod_id(cls, v):
         return validate_and_convert_id(v, "mod_id")
 
-mod_query = ObjectType("Query")
+mod_query = ObjectType("ModQuery")
 
 @mod_query.field("getModDownloadLink")
 def resolve_get_mod_download_link(_, info, input) -> str:

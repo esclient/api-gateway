@@ -2,7 +2,6 @@ from ariadne import MutationType
 
 mutation = MutationType()
 
-
 @mutation.field("comment")
 def resolve_comment_root(*_):
     return {}
