@@ -1,4 +1,4 @@
-type CreateModPayload {
+type CreateModResult {
     mod_id: ID!
     upload_url: String!
     s3_key: String!
@@ -9,7 +9,7 @@ type Mutation {
     editComment(input: EditCommentInput!): Boolean!
     deleteComment(input: DeleteCommentInput!): Boolean!
     addRate(input: AddRateInput!): ID!
-    createMod(input: CreateModInput!): CreateModPayload!
+    createMod(input: CreateModInput!): CreateModResult!
     setStatus(input: SetStatusInput!): Boolean!
 }
 
@@ -41,23 +41,23 @@ input AddRateInput {
 }
 
 input CreateCommentInput {
-    mod_id: Int!
-    author_id: Int!
+    mod_id: ID!
+    author_id: ID!
     text: String!
 }
 
 input EditCommentInput {
-    comment_id: Int!
+    comment_id: ID!
     text: String!
 }
 
 input DeleteCommentInput {
-    comment_id: Int!
+    comment_id: ID!
 }
 
 input CreateModInput {
     mod_title: String!
-    author_id: Int!
+    author_id: ID!
     filename: String!
     description: String!
 }
