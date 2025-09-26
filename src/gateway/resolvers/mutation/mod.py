@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Any
 
 from ariadne import ObjectType
 from graphql import GraphQLResolveInfo
@@ -24,7 +25,7 @@ class CreateModInput(BaseModel):
     description: str
 
     @field_validator("author_id", mode="before")
-    def validate_author_id(cls, v):
+    def validate_author_id(cls, v: Any) -> int:
         return validate_and_convert_id(v, "author_id")
 
 
@@ -35,7 +36,7 @@ class CreateModResult(BaseModel):
 
 
 @mod_mutation.field("createMod")
-def resolve_create_mod(parent: object, info: GraphQLResolveInfo, input: CreateModInput):
+def resolve_create_mod(parent: object, info: GraphQLResolveInfo, input: CreateModInput) -> dict[str, Any]:
     data = CreateModInput.model_validate(input)
     resp = create_mod_rpc(data.mod_title, data.author_id, data.filename, data.description)
     return CreateModResult(mod_id=resp.mod_id, s3_key=resp.s3_key, upload_url=resp.upload_url).model_dump()
@@ -46,7 +47,7 @@ class SetStatusInput(BaseModel):
     status: ModStatus
 
     @field_validator("mod_id", mode="before")
-    def validate_mod_id(cls, v):
+    def validate_mod_id(cls, v: Any) -> int:
         return validate_and_convert_id(v, "mod_id")
 
 

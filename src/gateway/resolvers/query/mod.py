@@ -1,3 +1,5 @@
+from typing import Any
+
 from ariadne import ObjectType
 from graphql import GraphQLResolveInfo
 from pydantic import BaseModel, field_validator
@@ -10,7 +12,7 @@ class GetModDownloadLinkInput(BaseModel):
     mod_id: int
 
     @field_validator("mod_id", mode="before")
-    def _mod_id(cls, v):
+    def _mod_id(cls, v: Any) -> int:
         return validate_and_convert_id(v, "mod_id")
 
 

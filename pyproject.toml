@@ -49,7 +49,6 @@ line-length = 120
 target-version = "py310"
 preview = true
 exclude = [".venv", "build", "dist", "src/gateway/stubs"]
-extend-ignore = ["ARG002"]
 
 [tool.ruff.lint]
 select = [
@@ -71,6 +70,9 @@ ignore = [
     "RUF100",
     "RUF003",
     "RUF002"
+]
+extend-ignore = [
+    "ARG002"
 ]
 
 [tool.ruff.lint.per-file-ignores]

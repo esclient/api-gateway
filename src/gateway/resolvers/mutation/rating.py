@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Any
 
 from ariadne import ObjectType
 from graphql import GraphQLResolveInfo
@@ -25,11 +26,11 @@ class AddRateInput(BaseModel):
     rate: RateType
 
     @field_validator("mod_id", mode="before")
-    def validate_mod_id(cls, v):
+    def validate_mod_id(cls, v: Any) -> int:
         return validate_and_convert_id(v, "mod_id")
 
     @field_validator("author_id", mode="before")
-    def validate_author_id(cls, v):
+    def validate_author_id(cls, v: Any) -> int:
         return validate_and_convert_id(v, "author_id")
 
 
