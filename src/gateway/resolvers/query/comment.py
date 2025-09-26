@@ -1,4 +1,5 @@
 from ariadne import ObjectType
+from graphql import GraphQLResolveInfo
 from pydantic import BaseModel, field_validator
 
 from gateway.clients.comment import get_comments_rpc
@@ -29,7 +30,7 @@ comment_query = ObjectType("CommentQuery")
 
 
 @comment_query.field("getComments")
-def resolve_get_comments(_, info, input: GetCommentsInput):
+def resolve_get_comments(parent: object, info: GraphQLResolveInfo, input: GetCommentsInput):
     data = GetCommentsInput.model_validate(input)
     resp = get_comments_rpc(data.mod_id)
     return [

@@ -1,4 +1,5 @@
 from ariadne import ObjectType
+from graphql import GraphQLResolveInfo
 from pydantic import BaseModel, field_validator
 
 from gateway.clients.mod import get_mod_download_link_rpc
@@ -17,7 +18,7 @@ mod_query = ObjectType("ModQuery")
 
 
 @mod_query.field("getModDownloadLink")
-def resolve_get_mod_download_link(_, info, input) -> str:
+def resolve_get_mod_download_link(parent: object, info: GraphQLResolveInfo, input: GetModDownloadLinkInput) -> str:
     data = GetModDownloadLinkInput.model_validate(input)
     resp = get_mod_download_link_rpc(data.mod_id)
     return resp.link_url

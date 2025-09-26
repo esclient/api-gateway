@@ -5,7 +5,7 @@
 groups = ["default", "dev", "lint"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:6439ca1fe902025685e3d10c1221cf89ac96b616be36fe50d292c6a895b36664"
+content_hash = "sha256:4ffcd7ca0f38a51c84544a0e99c25205481febf4ca6d76b3f534bae4cfa205d1"
 
 [[metadata.targets]]
 requires_python = "~=3.10"
@@ -707,6 +707,28 @@ files = [
     {file = "tomli-2.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:a38aa0308e754b0e3c67e344754dff64999ff9b513e691d0e786265c93583c69"},
     {file = "tomli-2.2.1-py3-none-any.whl", hash = "sha256:cb55c73c5f4408779d0cf3eef9f762b9c9f147a77de7b258bef0a5628adc85cc"},
     {file = "tomli-2.2.1.tar.gz", hash = "sha256:cd45e1dc79c835ce60f7404ec8119f2eb06d38b1deba146f07ced3bbc44505ff"},
+]
+
+[[package]]
+name = "types-grpcio"
+version = "1.0.0.20250914"
+requires_python = ">=3.9"
+summary = "Typing stubs for grpcio"
+groups = ["dev"]
+files = [
+    {file = "types_grpcio-1.0.0.20250914-py3-none-any.whl", hash = "sha256:47253be85c5ef5ff5397c23a596cb6b657580cdd0814a7e3fc75d2aacb08aa60"},
+    {file = "types_grpcio-1.0.0.20250914.tar.gz", hash = "sha256:6b6f42bfd90e8c73d3969e04978e8cb07651cf877f447779d4003a307d213016"},
+]
+
+[[package]]
+name = "types-protobuf"
+version = "6.32.1.20250918"
+requires_python = ">=3.9"
+summary = "Typing stubs for protobuf"
+groups = ["dev"]
+files = [
+    {file = "types_protobuf-6.32.1.20250918-py3-none-any.whl", hash = "sha256:22ba6133d142d11cc34d3788ad6dead2732368ebb0406eaa7790ea6ae46c8d0b"},
+    {file = "types_protobuf-6.32.1.20250918.tar.gz", hash = "sha256:44ce0ae98475909ca72379946ab61a4435eec2a41090821e713c17e8faf5b88f"},
 ]
 
 [[package]]

@@ -1,4 +1,5 @@
 from ariadne import ObjectType
+from graphql import GraphQLResolveInfo
 from pydantic import BaseModel, field_validator
 
 from gateway.clients.comment import (
@@ -26,7 +27,7 @@ class CreateCommentInput(BaseModel):
 
 
 @comment_mutation.field("createComment")
-def resolve_create_comment(_, info, input: CreateCommentInput) -> str:
+def resolve_create_comment(parent: object, info: GraphQLResolveInfo, input: CreateCommentInput) -> str:
     data = CreateCommentInput.model_validate(input)
     resp = create_comment_rpc(data.mod_id, data.author_id, data.text)
     return str(resp.comment_id)
@@ -42,7 +43,7 @@ class EditCommentInput(BaseModel):
 
 
 @comment_mutation.field("editComment")
-def resolve_edit_comment(_, info, input: EditCommentInput) -> bool:
+def resolve_edit_comment(parent: object, info: GraphQLResolveInfo, input: EditCommentInput) -> bool:
     data = EditCommentInput.model_validate(input)
     resp = edit_comment_rpc(data.comment_id, data.text)
     return resp.success
@@ -57,7 +58,7 @@ class DeleteCommentInput(BaseModel):
 
 
 @comment_mutation.field("deleteComment")
-def resolve_delete_comment(_, info, input: DeleteCommentInput) -> bool:
+def resolve_delete_comment(parent: object, info: GraphQLResolveInfo, input: DeleteCommentInput) -> bool:
     data = DeleteCommentInput.model_validate(input)
     resp = delete_comment_rpc(data.comment_id)
     return resp.success

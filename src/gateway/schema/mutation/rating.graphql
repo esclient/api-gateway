@@ -1,0 +1,18 @@
+type RatingMutation {
+    addRate(input: AddRateInput!): ID!
+}
+
+enum Rate {
+    RATE_UNSPECIFIED
+    RATE_1
+    RATE_2
+    RATE_3
+    RATE_4
+    RATE_5
+}
+
+input AddRateInput {
+    mod_id: ID!
+    author_id: ID!
+    rate: Rate!
+}
