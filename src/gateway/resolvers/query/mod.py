@@ -1,19 +1,26 @@
+from typing import Any
+
 from ariadne import ObjectType
+from graphql import GraphQLResolveInfo
+from pydantic import BaseModel, field_validator
+
 from gateway.clients.mod import get_mod_download_link_rpc
 from gateway.helpers.id_helper import validate_and_convert_id
-from pydantic import BaseModel, field_validator
+
 
 class GetModDownloadLinkInput(BaseModel):
     mod_id: int
 
     @field_validator("mod_id", mode="before")
-    def _mod_id(cls, v):
+    def _mod_id(cls, v: Any) -> int:
         return validate_and_convert_id(v, "mod_id")
+
 
 mod_query = ObjectType("ModQuery")
 
+
 @mod_query.field("getModDownloadLink")
-def resolve_get_mod_download_link(_, info, input) -> str:
+def resolve_get_mod_download_link(parent: object, info: GraphQLResolveInfo, input: GetModDownloadLinkInput) -> str:
     data = GetModDownloadLinkInput.model_validate(input)
     resp = get_mod_download_link_rpc(data.mod_id)
     return resp.link_url

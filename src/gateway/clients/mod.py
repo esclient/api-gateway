@@ -1,9 +1,11 @@
 import grpc
-import gateway.stubs.mod_pb2_grpc, gateway.stubs.mod_pb2
+
+import gateway.stubs.mod_pb2
+import gateway.stubs.mod_pb2_grpc
 from gateway.converters.mod_status_converter import graphql_to_proto_mod_status
 
 _channel = grpc.insecure_channel("host.docker.internal:7777")
-_stub = gateway.stubs.mod_pb2_grpc.ModServiceStub(_channel)
+_stub = gateway.stubs.mod_pb2_grpc.ModServiceStub(_channel)  # type: ignore
 
 
 def create_mod_rpc(
@@ -15,16 +17,16 @@ def create_mod_rpc(
         filename=filename,
         description=description,
     )
-    return _stub.CreateMod(req)
+    return _stub.CreateMod(req)  # type: ignore
 
 
 def set_status_mod_rpc(mod_id: int, status: str) -> gateway.stubs.mod_pb2.SetStatusResponse:
-    req = gateway.stubs.mod_pb2.SetStatusRequest(
-        mod_id=mod_id, status=graphql_to_proto_mod_status(status)
-    )
-    return _stub.SetStatus(req)
+    req = gateway.stubs.mod_pb2.SetStatusRequest(mod_id=mod_id, status=graphql_to_proto_mod_status(status))  # type: ignore
+    return _stub.SetStatus(req)  # type: ignore
 
 
-def get_mod_download_link_rpc(mod_id: int) -> gateway.stubs.mod_pb2.GetModDownloadLinkResponse:
+def get_mod_download_link_rpc(
+    mod_id: int,
+) -> gateway.stubs.mod_pb2.GetModDownloadLinkResponse:
     req = gateway.stubs.mod_pb2.GetModDownloadLinkRequest(mod_id=mod_id)
-    return _stub.GetModDownloadLink(req)
+    return _stub.GetModDownloadLink(req)  # type: ignore

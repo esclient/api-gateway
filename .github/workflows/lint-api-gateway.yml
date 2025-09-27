@@ -1,0 +1,14 @@
+name: "lint api-gateway"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  lint-api-gateway:
+    uses: esclient/tools/.github/workflows/lint-api-gateway-python.yml@main
+    with:
+      python-version: '3.10.4'

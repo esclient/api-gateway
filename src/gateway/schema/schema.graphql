@@ -1,6 +1,7 @@
 type Mutation {
     comment: CommentMutation
     mod: ModMutation
+    rating: RatingMutation
 }
 
 type Query {

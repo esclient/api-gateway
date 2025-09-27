@@ -5,18 +5,8 @@ type CreateModResult {
 }
 
 type ModMutation {
-    addRate(input: AddRateInput!): ID!
     createMod(input: CreateModInput!): CreateModResult!
     setStatus(input: SetStatusInput!): Boolean!
-}
-
-enum Rate {
-    RATE_UNSPECIFIED
-    RATE_1
-    RATE_2
-    RATE_3
-    RATE_4
-    RATE_5
 }
 
 enum ModStatus {
@@ -24,12 +14,6 @@ enum ModStatus {
     MOD_STATUS_UPLOADED
     MOD_STATUS_BANNED
     MOD_STATUS_HIDDEN
-}
-
-input AddRateInput {
-    mod_id: ID!
-    author_id: ID!
-    rate: Rate!
 }
 
 input CreateModInput {
