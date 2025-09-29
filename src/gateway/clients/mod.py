@@ -30,3 +30,8 @@ def get_mod_download_link_rpc(
 ) -> gateway.stubs.mod_pb2.GetModDownloadLinkResponse:
     req = gateway.stubs.mod_pb2.GetModDownloadLinkRequest(mod_id=mod_id)
     return _stub.GetModDownloadLink(req)  # type: ignore
+
+
+def get_mods_rpc() -> gateway.stubs.mod_pb2.GetModsResponse:
+    req = gateway.stubs.mod_pb2.GetModsRequest()
+    return _stub.GetMods(req)  # type: ignore
