@@ -1,7 +1,27 @@
 type ModQuery {
     getModDownloadLink(input: getModDownloadLinkInput!): String!
+    getMods(input: getModsInput!): [Mod]
+}
+
+enum ModStatus {
+  MOD_STATUS_UNSPECIFIED
+  MOD_STATUS_UPLOADED
+  MOD_STATUS_BANNED
+  MOD_STATUS_HIDDEN
+}
+
+type Mod {
+  id: ID!
+  author_id: ID!
+  title: String!
+  description: String!
+  version: Int!
+  status: ModStatus!
+  created_at: Int!
 }
 
 input getModDownloadLinkInput {
     mod_id: Int!
 }
+
+input getModsInput {}
