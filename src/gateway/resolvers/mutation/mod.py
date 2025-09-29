@@ -19,7 +19,7 @@ class ModStatus(str, Enum):
 
 
 class CreateModInput(BaseModel):
-    mod_title: str
+    title: str
     author_id: int
     filename: str
     description: str
@@ -38,7 +38,7 @@ class CreateModResult(BaseModel):
 @mod_mutation.field("createMod")
 def resolve_create_mod(parent: object, info: GraphQLResolveInfo, input: CreateModInput) -> dict[str, Any]:
     data = CreateModInput.model_validate(input)
-    resp = create_mod_rpc(data.mod_title, data.author_id, data.filename, data.description)
+    resp = create_mod_rpc(data.title, data.author_id, data.filename, data.description)
     return CreateModResult(mod_id=resp.mod_id, s3_key=resp.s3_key, upload_url=resp.upload_url).model_dump()
 
 
