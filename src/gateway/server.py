@@ -13,10 +13,8 @@ from gateway.settings import Settings
 
 settings = Settings()
 
-type_defs = load_schema_from_path("src/gateway/schema")
-
 schema = make_executable_schema(
-    type_defs,
+    load_schema_from_path("src/gateway/schema"),
     query,
     comment_query,
     mod_query,
