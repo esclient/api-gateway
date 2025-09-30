@@ -9,10 +9,10 @@ _stub = gateway.stubs.mod_pb2_grpc.ModServiceStub(_channel)  # type: ignore
 
 
 def create_mod_rpc(
-    mod_title: str, author_id: int, filename: str, description: str
+    title: str, author_id: int, filename: str, description: str
 ) -> gateway.stubs.mod_pb2.CreateModResponse:
     req = gateway.stubs.mod_pb2.CreateModRequest(
-        mod_title=mod_title,
+        title=title,
         author_id=author_id,
         filename=filename,
         description=description,
@@ -30,3 +30,8 @@ def get_mod_download_link_rpc(
 ) -> gateway.stubs.mod_pb2.GetModDownloadLinkResponse:
     req = gateway.stubs.mod_pb2.GetModDownloadLinkRequest(mod_id=mod_id)
     return _stub.GetModDownloadLink(req)  # type: ignore
+
+
+def get_mods_rpc() -> gateway.stubs.mod_pb2.GetModsResponse:
+    req = gateway.stubs.mod_pb2.GetModsRequest()
+    return _stub.GetMods(req)  # type: ignore

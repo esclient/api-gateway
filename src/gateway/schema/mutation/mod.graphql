@@ -9,13 +9,6 @@ type ModMutation {
     setStatus(input: SetStatusInput!): Boolean!
 }
 
-enum ModStatus {
-    MOD_STATUS_UNSPECIFIED
-    MOD_STATUS_UPLOADED
-    MOD_STATUS_BANNED
-    MOD_STATUS_HIDDEN
-}
-
 input CreateModInput {
     mod_title: String!
     author_id: ID!

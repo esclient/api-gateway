@@ -9,7 +9,7 @@ USER_PROTO_NAME := user.proto
 RATING_PROTO_TAG ?= v0.0.15
 RATING_PROTO_NAME := rating.proto
 
-MOD_PROTO_TAG ?= v0.1.1
+MOD_PROTO_TAG ?= v0.1.2
 MOD_PROTO_NAME := mod.proto
 
 PROTO_REPO := https://raw.githubusercontent.com/esclient/protos

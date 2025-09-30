@@ -1,6 +1,6 @@
 type ModQuery {
     getModDownloadLink(input: getModDownloadLinkInput!): String!
-    getMods(input: getModsInput!): [Mod]
+    getMods: [Mod]
 }
 
 enum ModStatus {
@@ -23,5 +23,3 @@ type Mod {
 input getModDownloadLinkInput {
     mod_id: Int!
 }
-
-input getModsInput {}
