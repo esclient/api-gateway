@@ -1,11 +1,11 @@
 from collections.abc import Mapping
-from enum import Enum
+from enum import StrEnum
 from typing import Final
 
 from gateway.stubs.mod_pb2 import ModStatus as ProtoModStatus
 
 
-class GraphQLModStatus(str, Enum):
+class GraphQLModStatus(StrEnum):
     UNSPECIFIED = "MOD_STATUS_UNSPECIFIED"
     UPLOADED = "MOD_STATUS_UPLOADED"
     BANNED = "MOD_STATUS_BANNED"

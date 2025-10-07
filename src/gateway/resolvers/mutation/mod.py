@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 from ariadne import ObjectType
@@ -11,7 +11,7 @@ from gateway.helpers.id_helper import validate_and_convert_id
 mod_mutation = ObjectType("ModMutation")
 
 
-class ModStatus(str, Enum):
+class ModStatus(StrEnum):
     MOD_STATUS_UNSPECIFIED = "MOD_STATUS_UNSPECIFIED"
     MOD_STATUS_UPLOADED = "MOD_STATUS_UPLOADED"
     MOD_STATUS_BANNED = "MOD_STATUS_BANNED"

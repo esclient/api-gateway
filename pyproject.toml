@@ -3,7 +3,7 @@ distribution = false
 
 [tool.black]
 line-length = 120
-target-version = ["py310"]
+target-version = ["py313"]
 skip-string-normalization = false
 exclude = '''
 /(
@@ -46,7 +46,7 @@ exclude = [
 
 [tool.ruff]
 line-length = 120
-target-version = "py310"
+target-version = "py313"
 preview = true
 exclude = [".venv", "build", "dist", "src/gateway/stubs"]
 
@@ -81,7 +81,7 @@ extend-ignore = [
 "src/gateway/stubs/*" = ["E501","ARG001", "ARG002"]
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.13"
 strict = true
 warn_unused_configs = true
 warn_return_any = true
@@ -114,7 +114,7 @@ dependencies = [
     "pydantic>=2.11.9",
     "pydantic-settings>=2.10.1",
 ]
-requires-python = "<4.0,>=3.10"
+requires-python = "<4.0,>=3.13"
 readme = "README.md"
 license = {text = "MIT"}
 

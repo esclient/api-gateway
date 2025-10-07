@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 from ariadne import ObjectType
@@ -11,7 +11,7 @@ from gateway.helpers.id_helper import validate_and_convert_id
 rating_mutation = ObjectType("RatingMutation")
 
 
-class RateType(str, Enum):
+class RateType(StrEnum):
     RATE_UNSPECIFIED = "RATE_UNSPECIFIED"
     RATE_1 = "RATE_1"
     RATE_2 = "RATE_2"
