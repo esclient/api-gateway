@@ -1,0 +1,2 @@
+HOST: "{vault:api-gateway/prod#host}"
+PORT: "{vault:api-gateway/prod#port}"

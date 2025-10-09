@@ -72,16 +72,8 @@ update-%: $(TMP_DIR)/%.proto | $(OUT_DIR)
 	$(FIX_IMPORTS)
 	$(MAKE) clean
 
-docker-build:
-	docker build --build-arg PORT=$(PORT) -t gateway .
-
-run: docker-build
-	docker run --rm -it \
-		--env-file .env \
-		-p $(PORT):$(PORT) \
-		-v $(CURDIR):/app \
-		-e WATCHFILES_FORCE_POLLING=true \
-		gateway
+run:
+	ENV=dev PYTHONPATH=src ./load_envs.sh pdm run python -u -m gateway.server
 
 format:
 	black .
