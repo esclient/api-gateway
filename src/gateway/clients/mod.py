@@ -3,8 +3,10 @@ import grpc
 import gateway.stubs.mod_pb2
 import gateway.stubs.mod_pb2_grpc
 from gateway.converters.mod_status_converter import graphql_to_proto_mod_status
+from gateway.settings import Settings
 
-_channel = grpc.insecure_channel("host.docker.internal:7777")
+_settings = Settings()
+_channel = grpc.insecure_channel(_settings.mod_service_url)
 _stub = gateway.stubs.mod_pb2_grpc.ModServiceStub(_channel)  # type: ignore
 
 

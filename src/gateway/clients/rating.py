@@ -2,8 +2,10 @@ import grpc
 
 import gateway.stubs.rating_pb2
 import gateway.stubs.rating_pb2_grpc
+from gateway.settings import Settings
 
-_channel = grpc.insecure_channel("host.docker.internal:7777")
+_settings = Settings()
+_channel = grpc.insecure_channel(_settings.rating_service_url)
 _stub = gateway.stubs.rating_pb2_grpc.RatingServiceStub(_channel)  # type: ignore
 
 

@@ -2,8 +2,10 @@ import grpc
 
 import gateway.stubs.comment_pb2
 import gateway.stubs.comment_pb2_grpc
+from gateway.settings import Settings
 
-_channel = grpc.insecure_channel("host.docker.internal:7777")
+_settings = Settings()
+_channel = grpc.insecure_channel(_settings.comment_service_url)
 _stub = gateway.stubs.comment_pb2_grpc.CommentServiceStub(_channel)  # type: ignore
 
 

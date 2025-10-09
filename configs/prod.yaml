@@ -1,2 +1,11 @@
 HOST: "{vault:api-gateway/prod#host}"
 PORT: "{vault:api-gateway/prod#port}"
+
+COMMENT_SERVICE_HOST: comment-service
+COMMENT_SERVICE_PORT: 7002
+
+RATING_SERVICE_HOST: rating-service
+RATING_SERVICE_PORT: 7003
+
+MOD_SERVICE_HOST: mod-service
+MOD_SERVICE_PORT: 7004
