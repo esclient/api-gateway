@@ -1,4 +1,3 @@
-from collections.abc import Coroutine
 from typing import Any, ClassVar
 
 from google.protobuf import message as _message
@@ -62,16 +61,14 @@ class AsyncCommentServiceClient(AsyncGRPCClient):
 
     # *** #
 
-    async def create_comment(
-        self, mod_id: int, author_id: int, text: str
-    ) -> Coroutine[Any, Any, comment_pb2.CreateCommentResponse]:
+    async def create_comment(self, mod_id: int, author_id: int, text: str) -> comment_pb2.CreateCommentResponse:
         return self.call_rpc("CreateComment", {"mod_id": mod_id, "author_id": author_id, "text": text})  # type: ignore[return-value]
 
-    async def edit_comment(self, comment_id: int, text: str) -> Coroutine[Any, Any, comment_pb2.EditCommentResponse]:
+    async def edit_comment(self, comment_id: int, text: str) -> comment_pb2.EditCommentResponse:
         return self.call_rpc("EditComment", {"comment_id": comment_id, "text": text})  # type: ignore[return-value]
 
-    async def delete_comment(self, comment_id: int) -> Coroutine[Any, Any, comment_pb2.DeleteCommentResponse]:
+    async def delete_comment(self, comment_id: int) -> comment_pb2.DeleteCommentResponse:
         return self.call_rpc("DeleteComment", {"comment_id": comment_id})  # type: ignore[return-value]
 
-    async def get_comments(self, mod_id: int) -> Coroutine[Any, Any, comment_pb2.GetCommentsResponse]:
+    async def get_comments(self, mod_id: int) -> comment_pb2.GetCommentsResponse:
         return self.call_rpc("GetComments", {"mod_id": mod_id})  # type: ignore[return-value]

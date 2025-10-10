@@ -1,4 +1,3 @@
-from collections.abc import Coroutine
 from typing import Any, ClassVar
 
 from google.protobuf import message as _message
@@ -51,8 +50,8 @@ class AsyncRatingServiceClient(AsyncGRPCClient):
 
     # *** #
 
-    async def rate_mod(self, mod_id: int, author_id: int, rate: str) -> Coroutine[Any, Any, rating_pb2.RateModResponse]:
+    async def rate_mod(self, mod_id: int, author_id: int, rate: str) -> rating_pb2.RateModResponse:
         return self.call_rpc("RateMod", {"mod_id": mod_id, "author_id": author_id, "rate": rate})  # type: ignore[return-value]
 
-    async def get_rates(self, mod_id: int) -> Coroutine[Any, Any, rating_pb2.GetRatesResponse]:
+    async def get_rates(self, mod_id: int) -> rating_pb2.GetRatesResponse:
         return self.call_rpc("GetRates", {"mod_id": mod_id})  # type: ignore[return-value]

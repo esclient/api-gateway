@@ -1,4 +1,3 @@
-from collections.abc import Coroutine
 from typing import Any, ClassVar
 
 from google.protobuf import message as _message
@@ -65,16 +64,16 @@ class AsyncModServiceClient(AsyncGRPCClient):
 
     async def create_mod(
         self, title: str, author_id: int, filename: str, description: str
-    ) -> Coroutine[Any, Any, mod_pb2.CreateModResponse]:
+    ) -> mod_pb2.CreateModResponse:
         return self.call_rpc(
             "CreateMod", {"title": title, "author_id": author_id, "filename": filename, "description": description}
         )  # type: ignore[return-value]
 
-    async def set_status_mod(self, mod_id: int, status: str) -> Coroutine[Any, Any, mod_pb2.SetStatusResponse]:
+    async def set_status_mod(self, mod_id: int, status: str) -> mod_pb2.SetStatusResponse:
         return self.call_rpc("SetStatus", {"mod_id": mod_id, "status": status})  # type: ignore[return-value]
 
-    async def get_mod_download_link_rpc(self, mod_id: int) -> Coroutine[Any, Any, mod_pb2.GetModDownloadLinkResponse]:
+    async def get_mod_download_link_rpc(self, mod_id: int) -> mod_pb2.GetModDownloadLinkResponse:
         return self.call_rpc("GetModDownloadLink", {"mod_id": mod_id})  # type: ignore[return-value]
 
-    async def get_mods(self) -> Coroutine[Any, Any, mod_pb2.GetModsResponse]:
+    async def get_mods(self) -> mod_pb2.GetModsResponse:
         return self.call_rpc("GetMods", {})  # type: ignore[return-value]

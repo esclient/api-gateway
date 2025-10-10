@@ -6,6 +6,8 @@ from pydantic import BaseModel, field_validator
 
 from gateway.helpers.id_helper import validate_and_convert_id
 
+from ..grpc_error_wrapper import handle_grpc_errors
+
 comment_mutation = ObjectType("CommentMutation")
 
 
@@ -24,6 +26,7 @@ class CreateCommentInput(BaseModel):
 
 
 @comment_mutation.field("createComment")
+@handle_grpc_errors
 def resolve_create_comment(parent: object, info: GraphQLResolveInfo, input: CreateCommentInput) -> str:
     data = CreateCommentInput.model_validate(input)
     client = info.context["clients"]["comment_service"]
@@ -41,6 +44,7 @@ class EditCommentInput(BaseModel):
 
 
 @comment_mutation.field("editComment")
+@handle_grpc_errors
 def resolve_edit_comment(parent: object, info: GraphQLResolveInfo, input: EditCommentInput) -> bool:
     data = EditCommentInput.model_validate(input)
     client = info.context["clients"]["comment_service"]
@@ -57,6 +61,7 @@ class DeleteCommentInput(BaseModel):
 
 
 @comment_mutation.field("deleteComment")
+@handle_grpc_errors
 def resolve_delete_comment(parent: object, info: GraphQLResolveInfo, input: DeleteCommentInput) -> bool:
     data = DeleteCommentInput.model_validate(input)
     client = info.context["clients"]["comment_service"]

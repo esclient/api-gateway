@@ -7,6 +7,8 @@ from pydantic import BaseModel, field_validator
 
 from gateway.helpers.id_helper import validate_and_convert_id
 
+from ..grpc_error_wrapper import handle_grpc_errors
+
 rating_mutation = ObjectType("RatingMutation")
 
 
@@ -34,6 +36,7 @@ class AddRateInput(BaseModel):
 
 
 @rating_mutation.field("addRate")
+@handle_grpc_errors
 def resolve_add_rate(parent: object, info: GraphQLResolveInfo, input: AddRateInput) -> str:
     data = AddRateInput.model_validate(input)
     client = info.context["clients"]["rating_service"]

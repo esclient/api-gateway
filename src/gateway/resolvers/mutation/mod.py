@@ -7,6 +7,8 @@ from pydantic import BaseModel, field_validator
 
 from gateway.helpers.id_helper import validate_and_convert_id
 
+from ..grpc_error_wrapper import handle_grpc_errors
+
 mod_mutation = ObjectType("ModMutation")
 
 
@@ -35,6 +37,7 @@ class CreateModResult(BaseModel):
 
 
 @mod_mutation.field("createMod")
+@handle_grpc_errors
 def resolve_create_mod(parent: object, info: GraphQLResolveInfo, input: CreateModInput) -> dict[str, Any]:
     data = CreateModInput.model_validate(input)
     client = info.context["clients"]["mod_service"]
@@ -52,6 +55,7 @@ class SetStatusInput(BaseModel):
 
 
 @mod_mutation.field("setStatus")
+@handle_grpc_errors
 def resolve_set_status_mod(parent: object, info: GraphQLResolveInfo, input: SetStatusInput) -> bool:
     data = SetStatusInput.model_validate(input)
     client = info.context["clients"]["mod_service"]

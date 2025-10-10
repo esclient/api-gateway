@@ -6,6 +6,8 @@ from pydantic import BaseModel, field_validator
 
 from gateway.helpers.id_helper import validate_and_convert_id
 
+from ..grpc_error_wrapper import handle_grpc_errors
+
 
 class GetCommentsInput(BaseModel):
     mod_id: int
@@ -31,6 +33,7 @@ comment_query = ObjectType("CommentQuery")
 
 
 @comment_query.field("getComments")
+@handle_grpc_errors
 def resolve_get_comments(parent: object, info: GraphQLResolveInfo, input: GetCommentsInput) -> list[dict[str, Any]]:
     data = GetCommentsInput.model_validate(input)
     client = info.context["clients"]["comment_service"]

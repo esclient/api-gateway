@@ -7,6 +7,8 @@ from pydantic import BaseModel, field_validator
 from gateway.converters.mod_status_converter import proto_to_graphql_mod_status
 from gateway.helpers.id_helper import validate_and_convert_id
 
+from ..grpc_error_wrapper import handle_grpc_errors
+
 
 class GetModDownloadLinkInput(BaseModel):
     mod_id: int
@@ -20,6 +22,7 @@ mod_query = ObjectType("ModQuery")
 
 
 @mod_query.field("getModDownloadLink")
+@handle_grpc_errors
 def resolve_get_mod_download_link(parent: object, info: GraphQLResolveInfo, input: GetModDownloadLinkInput) -> str:
     data = GetModDownloadLinkInput.model_validate(input)
     client = info.context["clients"]["mod_service"]
@@ -28,6 +31,7 @@ def resolve_get_mod_download_link(parent: object, info: GraphQLResolveInfo, inpu
 
 
 @mod_query.field("getMods")
+@handle_grpc_errors
 def resolve_get_mods(parent: object, info: GraphQLResolveInfo) -> list[dict[str, Any]]:
     client = info.context["clients"]["mod_service"]
     resp = client.get_mods()
