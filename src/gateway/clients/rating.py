@@ -1,19 +1,62 @@
-import grpc
+from gateway.stubs import rating_pb2, rating_pb2_grpc
+from google.protobuf import message as _message
+from typing import Dict, Any
+from .base_client import GRPCClient, AsyncGRPCClient
 
-import gateway.stubs.rating_pb2
-import gateway.stubs.rating_pb2_grpc
-from gateway.settings import Settings
+class RatingServiceClient(GRPCClient):
+    _RPC_REQUEST_CLASSES = {
+        "RateMod": rating_pb2.RateModRequest,
+        "GetRates": rating_pb2.GetRatesRequest,
+    }
 
-_settings = Settings()
-_channel = grpc.insecure_channel(_settings.rating_service_url)
-_stub = gateway.stubs.rating_pb2_grpc.RatingServiceStub(_channel)  # type: ignore
+    def _initialize_stub(self):
+        self._stub = rating_pb2_grpc.RatingServiceStub(self._channel)
+
+    def _create_request(self, rpc_name: str, request_data: Dict[str, Any]) -> _message.Message:
+        request_class = RatingServiceClient._RPC_REQUEST_CLASSES.get(rpc_name)
+        if not request_class:
+            raise ValueError(f"Неизветсный RPC метод: {rpc_name}")
+        
+        return request_class(**request_data)
+    
+    # *** #
+
+    def rate_mod(self, mod_id: int, author_id: int, rate: str) -> rating_pb2.RateModResponse:
+        return self.call_rpc("RateMod", {
+            "mod_id": mod_id,
+            "author_id": author_id,
+            "rate": rate
+        })
 
 
-def rate_mod_rpc(mod_id: int, author_id: int, rate: str) -> gateway.stubs.rating_pb2.RateModResponse:
-    req = gateway.stubs.rating_pb2.RateModRequest(mod_id=mod_id, author_id=author_id, rate=rate)
-    return _stub.RateMod(req)  # type: ignore
+    def get_rates(self, mod_id: int) -> rating_pb2.GetRatesResponse:
+        return self.call_rpc("GetRates", { "mod_id": mod_id })
+
+class AsyncRatingServiceClient(AsyncGRPCClient):
+    _RPC_REQUEST_CLASSES = {
+        "RateMod": rating_pb2.RateModRequest,
+        "GetRates": rating_pb2.GetRatesRequest,
+    }
+
+    def _initialize_stub(self):
+        self._stub = rating_pb2_grpc.RatingServiceStub(self._channel)
+    
+    def _create_request(self, rpc_name: str, request_data: Dict[str, Any]) -> _message.Message:
+        request_class = RatingServiceClient._RPC_REQUEST_CLASSES.get(rpc_name)
+        if not request_class:
+            raise ValueError(f"Неизветсный RPC метод: {rpc_name}")
+        
+        return request_class(**request_data)
+    
+    # *** #
+
+    async def rate_mod(self, mod_id: int, author_id: int, rate: str) -> rating_pb2.RateModResponse:
+        return self.call_rpc("RateMod", {
+            "mod_id": mod_id,
+            "author_id": author_id,
+            "rate": rate
+        })
 
 
-def get_rates_rpc(mod_id: int) -> gateway.stubs.rating_pb2.GetRatesResponse:
-    req = gateway.stubs.rating_pb2.GetRatesRequest(mod_id=mod_id)
-    return _stub.GetRates(req)  # type: ignore
+    async def get_rates(self, mod_id: int) -> rating_pb2.GetRatesResponse:
+        return self.call_rpc("GetRates", { "mod_id": mod_id })

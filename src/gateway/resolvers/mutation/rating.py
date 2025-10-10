@@ -5,7 +5,6 @@ from ariadne import ObjectType
 from graphql import GraphQLResolveInfo
 from pydantic import BaseModel, field_validator
 
-from gateway.clients.rating import rate_mod_rpc
 from gateway.helpers.id_helper import validate_and_convert_id
 
 rating_mutation = ObjectType("RatingMutation")
@@ -33,9 +32,9 @@ class AddRateInput(BaseModel):
     def validate_author_id(cls, v: Any) -> int:
         return validate_and_convert_id(v, "author_id")
 
-
 @rating_mutation.field("addRate")
 def resolve_add_rate(parent: object, info: GraphQLResolveInfo, input: AddRateInput) -> str:
     data = AddRateInput.model_validate(input)
-    resp = rate_mod_rpc(data.mod_id, data.author_id, data.rate.value)
+    client = info.context["clients"]["rating_service"]
+    resp = client.rate_mod(data.mod_id, data.author_id, data.rate.value)
     return str(resp.rate_id)
