@@ -1,39 +1,79 @@
-import grpc
+from typing import Any, ClassVar
 
-import gateway.stubs.mod_pb2
-import gateway.stubs.mod_pb2_grpc
-from gateway.converters.mod_status_converter import graphql_to_proto_mod_status
-from gateway.settings import Settings
+from google.protobuf import message as _message
 
-_settings = Settings()
-_channel = grpc.insecure_channel(_settings.mod_service_url)
-_stub = gateway.stubs.mod_pb2_grpc.ModServiceStub(_channel)  # type: ignore
+from gateway.stubs import mod_pb2, mod_pb2_grpc
+
+from .base_client import AsyncGRPCClient, GRPCClient
 
 
-def create_mod_rpc(
-    title: str, author_id: int, filename: str, description: str
-) -> gateway.stubs.mod_pb2.CreateModResponse:
-    req = gateway.stubs.mod_pb2.CreateModRequest(
-        title=title,
-        author_id=author_id,
-        filename=filename,
-        description=description,
-    )
-    return _stub.CreateMod(req)  # type: ignore
+class ModServiceClient(GRPCClient):
+    _RPC_REQUEST_CLASSES: ClassVar[dict[str, type[_message.Message]]] = {
+        "CreateMod": mod_pb2.CreateModRequest,
+        "SetStatus": mod_pb2.SetStatusRequest,
+        "GetModDownloadLink": mod_pb2.GetModDownloadLinkRequest,
+        "GetMods": mod_pb2.GetModsRequest,
+    }
+
+    def _initialize_stub(self) -> None:
+        self._stub = mod_pb2_grpc.ModServiceStub(self._channel)  # type: ignore
+
+    def _create_request(self, rpc_name: str, request_data: dict[str, Any]) -> _message.Message:
+        request_class = ModServiceClient._RPC_REQUEST_CLASSES.get(rpc_name)
+        if not request_class:
+            raise ValueError(f"Неизветсный RPC метод: {rpc_name}")
+
+        return request_class(**request_data)
+
+    # *** #
+
+    def create_mod(self, title: str, author_id: int, filename: str, description: str) -> mod_pb2.CreateModResponse:
+        return self.call_rpc(
+            "CreateMod", {"title": title, "author_id": author_id, "filename": filename, "description": description}
+        )  # type: ignore[return-value]
+
+    def set_status_mod(self, mod_id: int, status: str) -> mod_pb2.SetStatusResponse:
+        return self.call_rpc("SetStatus", {"mod_id": mod_id, "status": status})  # type: ignore[return-value]
+
+    def get_mod_download_link(self, mod_id: int) -> mod_pb2.GetModDownloadLinkResponse:
+        return self.call_rpc("GetModDownloadLink", {"mod_id": mod_id})  # type: ignore[return-value]
+
+    def get_mods(self) -> mod_pb2.GetModsResponse:
+        return self.call_rpc("GetMods", {})  # type: ignore[return-value]
 
 
-def set_status_mod_rpc(mod_id: int, status: str) -> gateway.stubs.mod_pb2.SetStatusResponse:
-    req = gateway.stubs.mod_pb2.SetStatusRequest(mod_id=mod_id, status=graphql_to_proto_mod_status(status))  # type: ignore
-    return _stub.SetStatus(req)  # type: ignore
+class AsyncModServiceClient(AsyncGRPCClient):
+    _RPC_REQUEST_CLASSES: ClassVar[dict[str, type[_message.Message]]] = {
+        "CreateMod": mod_pb2.CreateModRequest,
+        "SetStatus": mod_pb2.SetStatusRequest,
+        "GetModDownloadLink": mod_pb2.GetModDownloadLinkRequest,
+        "GetMods": mod_pb2.GetModsRequest,
+    }
 
+    def _initialize_stub(self) -> None:
+        self._stub = mod_pb2_grpc.ModServiceStub(self._channel)  # type: ignore
 
-def get_mod_download_link_rpc(
-    mod_id: int,
-) -> gateway.stubs.mod_pb2.GetModDownloadLinkResponse:
-    req = gateway.stubs.mod_pb2.GetModDownloadLinkRequest(mod_id=mod_id)
-    return _stub.GetModDownloadLink(req)  # type: ignore
+    def _create_request(self, rpc_name: str, request_data: dict[str, Any]) -> _message.Message:
+        request_class = ModServiceClient._RPC_REQUEST_CLASSES.get(rpc_name)
+        if not request_class:
+            raise ValueError(f"Неизветсный RPC метод: {rpc_name}")
 
+        return request_class(**request_data)
 
-def get_mods_rpc() -> gateway.stubs.mod_pb2.GetModsResponse:
-    req = gateway.stubs.mod_pb2.GetModsRequest()
-    return _stub.GetMods(req)  # type: ignore
+    # *** #
+
+    async def create_mod(
+        self, title: str, author_id: int, filename: str, description: str
+    ) -> mod_pb2.CreateModResponse:
+        return self.call_rpc(
+            "CreateMod", {"title": title, "author_id": author_id, "filename": filename, "description": description}
+        )  # type: ignore[return-value]
+
+    async def set_status_mod(self, mod_id: int, status: str) -> mod_pb2.SetStatusResponse:
+        return self.call_rpc("SetStatus", {"mod_id": mod_id, "status": status})  # type: ignore[return-value]
+
+    async def get_mod_download_link_rpc(self, mod_id: int) -> mod_pb2.GetModDownloadLinkResponse:
+        return self.call_rpc("GetModDownloadLink", {"mod_id": mod_id})  # type: ignore[return-value]
+
+    async def get_mods(self) -> mod_pb2.GetModsResponse:
+        return self.call_rpc("GetMods", {})  # type: ignore[return-value]
