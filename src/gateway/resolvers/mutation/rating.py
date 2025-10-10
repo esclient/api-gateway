@@ -32,6 +32,7 @@ class AddRateInput(BaseModel):
     def validate_author_id(cls, v: Any) -> int:
         return validate_and_convert_id(v, "author_id")
 
+
 @rating_mutation.field("addRate")
 def resolve_add_rate(parent: object, info: GraphQLResolveInfo, input: AddRateInput) -> str:
     data = AddRateInput.model_validate(input)

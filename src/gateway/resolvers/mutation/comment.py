@@ -45,7 +45,7 @@ def resolve_edit_comment(parent: object, info: GraphQLResolveInfo, input: EditCo
     data = EditCommentInput.model_validate(input)
     client = info.context["clients"]["comment_service"]
     resp = client.edit_comment(data.comment_id, data.text)
-    return resp.success
+    return resp.success  # type: ignore
 
 
 class DeleteCommentInput(BaseModel):
@@ -61,4 +61,4 @@ def resolve_delete_comment(parent: object, info: GraphQLResolveInfo, input: Dele
     data = DeleteCommentInput.model_validate(input)
     client = info.context["clients"]["comment_service"]
     resp = client.delete_comment(data.comment_id)
-    return resp.success
+    return resp.success  # type: ignore

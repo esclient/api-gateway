@@ -24,7 +24,7 @@ def resolve_get_mod_download_link(parent: object, info: GraphQLResolveInfo, inpu
     data = GetModDownloadLinkInput.model_validate(input)
     client = info.context["clients"]["mod_service"]
     resp = client.get_mod_download_link(data.mod_id)
-    return resp.link_url
+    return resp.link_url  # type: ignore
 
 
 @mod_query.field("getMods")

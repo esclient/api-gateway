@@ -6,6 +6,7 @@ from pydantic import BaseModel, field_validator
 
 from gateway.helpers.id_helper import validate_and_convert_id
 
+
 class GetCommentsInput(BaseModel):
     mod_id: int
 

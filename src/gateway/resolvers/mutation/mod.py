@@ -56,4 +56,4 @@ def resolve_set_status_mod(parent: object, info: GraphQLResolveInfo, input: SetS
     data = SetStatusInput.model_validate(input)
     client = info.context["clients"]["mod_service"]
     resp = client.set_status_mod(data.mod_id, data.status.value)
-    return resp.success
+    return resp.success  # type: ignore
