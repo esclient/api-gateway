@@ -35,7 +35,7 @@ class GRPCClient:
         raise NotImplementedError()
 
     @grpc_retry()  # type: ignore
-    def call_rpc(self, rpc_name: str, request_data: dict[str, Any], timeout: int=30) -> _message.Message:
+    def call_rpc(self, rpc_name: str, request_data: dict[str, Any], timeout: int = 30) -> _message.Message:
         """
         Универсальный метод вызова RPC
 
@@ -101,7 +101,7 @@ class AsyncGRPCClient:
         raise NotImplementedError()
 
     @grpc_retry()  # type: ignore
-    async def call_rpc(self, rpc_name: str, request_data: dict[str, Any], timeout: int=30) -> _message.Message:
+    async def call_rpc(self, rpc_name: str, request_data: dict[str, Any], timeout: int = 30) -> _message.Message:
         """
         Универсальный метод вызова RPC (async)
 
