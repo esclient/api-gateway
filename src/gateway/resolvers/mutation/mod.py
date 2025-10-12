@@ -38,10 +38,10 @@ class CreateModResult(BaseModel):
 
 @mod_mutation.field("createMod")
 @handle_grpc_errors
-def resolve_create_mod(parent: object, info: GraphQLResolveInfo, input: CreateModInput) -> dict[str, Any]:
+async def resolve_create_mod(parent: object, info: GraphQLResolveInfo, input: CreateModInput) -> dict[str, Any]:
     data = CreateModInput.model_validate(input)
     client = info.context["clients"]["mod_service"]
-    resp = client.create_mod(data.title, data.author_id, data.filename, data.description)
+    resp = await client.create_mod(data.title, data.author_id, data.filename, data.description)
     return CreateModResult(mod_id=resp.mod_id, s3_key=resp.s3_key, upload_url=resp.upload_url).model_dump()
 
 
@@ -56,8 +56,8 @@ class SetStatusInput(BaseModel):
 
 @mod_mutation.field("setStatus")
 @handle_grpc_errors
-def resolve_set_status_mod(parent: object, info: GraphQLResolveInfo, input: SetStatusInput) -> bool:
+async def resolve_set_status_mod(parent: object, info: GraphQLResolveInfo, input: SetStatusInput) -> bool:
     data = SetStatusInput.model_validate(input)
     client = info.context["clients"]["mod_service"]
-    resp = client.set_status_mod(data.mod_id, data.status.value)
+    resp = await client.set_status_mod(data.mod_id, data.status.value)
     return resp.success  # type: ignore

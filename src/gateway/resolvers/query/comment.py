@@ -34,10 +34,12 @@ comment_query = ObjectType("CommentQuery")
 
 @comment_query.field("getComments")
 @handle_grpc_errors
-def resolve_get_comments(parent: object, info: GraphQLResolveInfo, input: GetCommentsInput) -> list[dict[str, Any]]:
+async def resolve_get_comments(
+    parent: object, info: GraphQLResolveInfo, input: GetCommentsInput
+) -> list[dict[str, Any]]:
     data = GetCommentsInput.model_validate(input)
     client = info.context["clients"]["comment_service"]
-    resp = client.get_comments(data.mod_id)
+    resp = await client.get_comments(data.mod_id)
     return [
         GetCommentsResult(
             id=item.id,

@@ -37,8 +37,8 @@ class AddRateInput(BaseModel):
 
 @rating_mutation.field("addRate")
 @handle_grpc_errors
-def resolve_add_rate(parent: object, info: GraphQLResolveInfo, input: AddRateInput) -> str:
+async def resolve_add_rate(parent: object, info: GraphQLResolveInfo, input: AddRateInput) -> str:
     data = AddRateInput.model_validate(input)
     client = info.context["clients"]["rating_service"]
-    resp = client.rate_mod(data.mod_id, data.author_id, data.rate.value)
+    resp = await client.rate_mod(data.mod_id, data.author_id, data.rate.value)
     return str(resp.rate_id)

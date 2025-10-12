@@ -1,9 +1,12 @@
+import asyncio
+import logging
+
 import uvicorn
 from ariadne import load_schema_from_path, make_executable_schema
 from ariadne.asgi import GraphQL
 from ariadne.explorer import ExplorerGraphiQL
 
-from gateway.clients.client_factory import AsyncGRPCClientFactory, GRPCClientFactory
+from gateway.clients.client_factory import AsyncGRPCClientFactory
 from gateway.resolvers.mutation.comment import comment_mutation
 from gateway.resolvers.mutation.mod import mod_mutation
 from gateway.resolvers.mutation.root import mutation
@@ -13,6 +16,9 @@ from gateway.resolvers.query.root import query
 from gateway.settings import Settings
 
 from .esclient_graphql import GQLContextViewer
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 settings = Settings()
 
@@ -29,24 +35,42 @@ schema = make_executable_schema(
 )
 
 context_viewer = GQLContextViewer()
+# sync_clients_factory = GRPCClientFactory(settings)
+async_clients_factory = AsyncGRPCClientFactory(settings)
 
 app = GraphQL(schema, debug=True, explorer=ExplorerGraphiQL(), context_value=context_viewer.get_current)
 
-sync_clients_factory = GRPCClientFactory(settings)
-async_clients_factory = AsyncGRPCClientFactory(settings)
 
-# <Потом это можно будет заменить балансировщиком>#
-# <Я ваще не понимаю, что я делаю 🙏🙏🙏>#
-context_viewer.clients = {
-    "comment_service": sync_clients_factory.get_comment_client(),
-    "mod_service": sync_clients_factory.get_mod_client(),
-    "rating_service": sync_clients_factory.get_rating_client(),
-}
+async def main():  # type: ignore
+    logger.info("Инициализация gRPC клиентов...")
+    comment_client = async_clients_factory.get_comment_client()
+    mod_client = async_clients_factory.get_mod_client()
+    rating_client = async_clients_factory.get_rating_client()
+    logger.info("gRPC клиенты инициализированы.")
+
+    context_viewer.clients = {
+        "comment_service": comment_client,
+        "mod_service": mod_client,
+        "rating_service": rating_client,
+    }
+
+    app = GraphQL(
+        schema,
+        debug=True,
+        explorer=ExplorerGraphiQL(),
+        context_value=context_viewer.get_current,
+    )
+
+    config = uvicorn.Config(app=app, host=settings.host, port=settings.port, reload=True)
+    server = uvicorn.Server(config)
+
+    try:
+        await server.serve()
+    finally:
+        logger.info("Закрытие gRPC каналов...")
+        await async_clients_factory.close_all()
+        logger.info("Все соединения закрыты.")
+
 
 if __name__ == "__main__":
-    uvicorn.run(
-        "gateway.server:app",
-        host=settings.host,
-        port=settings.port,
-        reload=True,
-    )
+    asyncio.run(main())  # type: ignore

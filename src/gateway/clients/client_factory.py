@@ -47,19 +47,19 @@ class AsyncGRPCClientFactory:
         if url not in self._channels:
             self._channels[url] = grpc.aio.insecure_channel(url)
 
-    async def get_comment_client(self) -> AsyncCommentServiceClient:
+    def get_comment_client(self) -> AsyncCommentServiceClient:
         url = self._settings.comment_service_url
         self._add_to_channels_if_needed(url)
 
         return AsyncCommentServiceClient(self._channels[url])
 
-    async def get_mod_client(self) -> AsyncModServiceClient:
+    def get_mod_client(self) -> AsyncModServiceClient:
         url = self._settings.mod_service_url
         self._add_to_channels_if_needed(url)
 
         return AsyncModServiceClient(self._channels[url])
 
-    async def get_rating_client(self) -> AsyncRatingServiceClient:
+    def get_rating_client(self) -> AsyncRatingServiceClient:
         url = self._settings.rating_service_url
         self._add_to_channels_if_needed(url)
 
@@ -68,3 +68,9 @@ class AsyncGRPCClientFactory:
     async def close_all(self) -> None:
         for channel in self._channels.values():
             await channel.close()
+
+    async def __aenter__(self):  # type: ignore
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):  # type: ignore
+        await self.close_all()

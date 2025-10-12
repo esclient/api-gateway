@@ -23,18 +23,20 @@ mod_query = ObjectType("ModQuery")
 
 @mod_query.field("getModDownloadLink")
 @handle_grpc_errors
-def resolve_get_mod_download_link(parent: object, info: GraphQLResolveInfo, input: GetModDownloadLinkInput) -> str:
+async def resolve_get_mod_download_link(
+    parent: object, info: GraphQLResolveInfo, input: GetModDownloadLinkInput
+) -> str:
     data = GetModDownloadLinkInput.model_validate(input)
     client = info.context["clients"]["mod_service"]
-    resp = client.get_mod_download_link(data.mod_id)
+    resp = await client.get_mod_download_link(data.mod_id)
     return resp.link_url  # type: ignore
 
 
 @mod_query.field("getMods")
 @handle_grpc_errors
-def resolve_get_mods(parent: object, info: GraphQLResolveInfo) -> list[dict[str, Any]]:
+async def resolve_get_mods(parent: object, info: GraphQLResolveInfo) -> list[dict[str, Any]]:
     client = info.context["clients"]["mod_service"]
-    resp = client.get_mods()
+    resp = await client.get_mods()
     return [
         {
             "id": item.id,

@@ -19,7 +19,7 @@ class ModServiceClient(GRPCClient):
         self._stub = mod_pb2_grpc.ModServiceStub(self._channel)  # type: ignore
 
     def _create_request(self, rpc_name: str, request_data: dict[str, Any]) -> _message.Message:
-        request_class = ModServiceClient._RPC_REQUEST_CLASSES.get(rpc_name)
+        request_class = self._RPC_REQUEST_CLASSES.get(rpc_name)
         if not request_class:
             raise ValueError(f"Неизветсный RPC метод: {rpc_name}")
 
@@ -28,18 +28,18 @@ class ModServiceClient(GRPCClient):
     # *** #
 
     def create_mod(self, title: str, author_id: int, filename: str, description: str) -> mod_pb2.CreateModResponse:
-        return self.call_rpc(
+        return self.call_rpc(  # type: ignore
             "CreateMod", {"title": title, "author_id": author_id, "filename": filename, "description": description}
-        )  # type: ignore[return-value]
+        )
 
     def set_status_mod(self, mod_id: int, status: str) -> mod_pb2.SetStatusResponse:
-        return self.call_rpc("SetStatus", {"mod_id": mod_id, "status": status})  # type: ignore[return-value]
+        return self.call_rpc("SetStatus", {"mod_id": mod_id, "status": status})  # type: ignore
 
     def get_mod_download_link(self, mod_id: int) -> mod_pb2.GetModDownloadLinkResponse:
-        return self.call_rpc("GetModDownloadLink", {"mod_id": mod_id})  # type: ignore[return-value]
+        return self.call_rpc("GetModDownloadLink", {"mod_id": mod_id})  # type: ignore
 
     def get_mods(self) -> mod_pb2.GetModsResponse:
-        return self.call_rpc("GetMods", {})  # type: ignore[return-value]
+        return self.call_rpc("GetMods", {})  # type: ignore
 
 
 class AsyncModServiceClient(AsyncGRPCClient):
@@ -54,7 +54,7 @@ class AsyncModServiceClient(AsyncGRPCClient):
         self._stub = mod_pb2_grpc.ModServiceStub(self._channel)  # type: ignore
 
     def _create_request(self, rpc_name: str, request_data: dict[str, Any]) -> _message.Message:
-        request_class = ModServiceClient._RPC_REQUEST_CLASSES.get(rpc_name)
+        request_class = self._RPC_REQUEST_CLASSES.get(rpc_name)
         if not request_class:
             raise ValueError(f"Неизветсный RPC метод: {rpc_name}")
 
@@ -65,15 +65,15 @@ class AsyncModServiceClient(AsyncGRPCClient):
     async def create_mod(
         self, title: str, author_id: int, filename: str, description: str
     ) -> mod_pb2.CreateModResponse:
-        return self.call_rpc(
+        return await self.call_rpc(  # type: ignore
             "CreateMod", {"title": title, "author_id": author_id, "filename": filename, "description": description}
-        )  # type: ignore[return-value]
+        )
 
     async def set_status_mod(self, mod_id: int, status: str) -> mod_pb2.SetStatusResponse:
-        return self.call_rpc("SetStatus", {"mod_id": mod_id, "status": status})  # type: ignore[return-value]
+        return await self.call_rpc("SetStatus", {"mod_id": mod_id, "status": status})  # type: ignore
 
     async def get_mod_download_link_rpc(self, mod_id: int) -> mod_pb2.GetModDownloadLinkResponse:
-        return self.call_rpc("GetModDownloadLink", {"mod_id": mod_id})  # type: ignore[return-value]
+        return await self.call_rpc("GetModDownloadLink", {"mod_id": mod_id})  # type: ignore
 
     async def get_mods(self) -> mod_pb2.GetModsResponse:
-        return self.call_rpc("GetMods", {})  # type: ignore[return-value]
+        return await self.call_rpc("GetMods", {})  # type: ignore

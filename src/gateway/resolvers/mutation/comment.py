@@ -27,10 +27,10 @@ class CreateCommentInput(BaseModel):
 
 @comment_mutation.field("createComment")
 @handle_grpc_errors
-def resolve_create_comment(parent: object, info: GraphQLResolveInfo, input: CreateCommentInput) -> str:
+async def resolve_create_comment(parent: object, info: GraphQLResolveInfo, input: CreateCommentInput) -> str:
     data = CreateCommentInput.model_validate(input)
     client = info.context["clients"]["comment_service"]
-    resp = client.create_comment(data.mod_id, data.author_id, data.text)
+    resp = await client.create_comment(data.mod_id, data.author_id, data.text)
     return str(resp.comment_id)
 
 
@@ -45,10 +45,10 @@ class EditCommentInput(BaseModel):
 
 @comment_mutation.field("editComment")
 @handle_grpc_errors
-def resolve_edit_comment(parent: object, info: GraphQLResolveInfo, input: EditCommentInput) -> bool:
+async def resolve_edit_comment(parent: object, info: GraphQLResolveInfo, input: EditCommentInput) -> bool:
     data = EditCommentInput.model_validate(input)
     client = info.context["clients"]["comment_service"]
-    resp = client.edit_comment(data.comment_id, data.text)
+    resp = await client.edit_comment(data.comment_id, data.text)
     return resp.success  # type: ignore
 
 
@@ -62,8 +62,8 @@ class DeleteCommentInput(BaseModel):
 
 @comment_mutation.field("deleteComment")
 @handle_grpc_errors
-def resolve_delete_comment(parent: object, info: GraphQLResolveInfo, input: DeleteCommentInput) -> bool:
+async def resolve_delete_comment(parent: object, info: GraphQLResolveInfo, input: DeleteCommentInput) -> bool:
     data = DeleteCommentInput.model_validate(input)
     client = info.context["clients"]["comment_service"]
-    resp = client.delete_comment(data.comment_id)
+    resp = await client.delete_comment(data.comment_id)
     return resp.success  # type: ignore

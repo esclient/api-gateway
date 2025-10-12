@@ -19,7 +19,7 @@ class CommentServiceClient(GRPCClient):
         self._stub = comment_pb2_grpc.CommentServiceStub(self._channel)  # type: ignore
 
     def _create_request(self, rpc_name: str, request_data: dict[str, Any]) -> _message.Message:
-        request_class = CommentServiceClient._RPC_REQUEST_CLASSES.get(rpc_name)
+        request_class = self._RPC_REQUEST_CLASSES.get(rpc_name)
         if not request_class:
             raise ValueError(f"Неизветсный RPC метод: {rpc_name}")
 
@@ -29,16 +29,16 @@ class CommentServiceClient(GRPCClient):
     # Как минимум благодаря обёртке мы можем проставить типизацию
 
     def create_comment(self, mod_id: int, author_id: int, text: str) -> comment_pb2.CreateCommentResponse:
-        return self.call_rpc("CreateComment", {"mod_id": mod_id, "author_id": author_id, "text": text})  # type: ignore[return-value]
+        return self.call_rpc("CreateComment", {"mod_id": mod_id, "author_id": author_id, "text": text})  # type: ignore
 
     def edit_comment(self, comment_id: int, text: str) -> comment_pb2.EditCommentResponse:
-        return self.call_rpc("EditComment", {"comment_id": comment_id, "text": text})  # type: ignore[return-value]
+        return self.call_rpc("EditComment", {"comment_id": comment_id, "text": text})  # type: ignore
 
     def delete_comment(self, comment_id: int) -> comment_pb2.DeleteCommentResponse:
-        return self.call_rpc("DeleteComment", {"comment_id": comment_id})  # type: ignore[return-value]
+        return self.call_rpc("DeleteComment", {"comment_id": comment_id})  # type: ignore
 
     def get_comments(self, mod_id: int) -> comment_pb2.GetCommentsResponse:
-        return self.call_rpc("GetComments", {"mod_id": mod_id})  # type: ignore[return-value]
+        return self.call_rpc("GetComments", {"mod_id": mod_id})  # type: ignore
 
 
 class AsyncCommentServiceClient(AsyncGRPCClient):
@@ -53,7 +53,7 @@ class AsyncCommentServiceClient(AsyncGRPCClient):
         self._stub = comment_pb2_grpc.CommentServiceStub(self._channel)  # type: ignore
 
     def _create_request(self, rpc_name: str, request_data: dict[str, Any]) -> _message.Message:
-        request_class = CommentServiceClient._RPC_REQUEST_CLASSES.get(rpc_name)
+        request_class = self._RPC_REQUEST_CLASSES.get(rpc_name)
         if not request_class:
             raise ValueError(f"Неизветсный RPC метод: {rpc_name}")
 
@@ -62,13 +62,13 @@ class AsyncCommentServiceClient(AsyncGRPCClient):
     # *** #
 
     async def create_comment(self, mod_id: int, author_id: int, text: str) -> comment_pb2.CreateCommentResponse:
-        return self.call_rpc("CreateComment", {"mod_id": mod_id, "author_id": author_id, "text": text})  # type: ignore[return-value]
+        return await self.call_rpc("CreateComment", {"mod_id": mod_id, "author_id": author_id, "text": text})  # type: ignore
 
     async def edit_comment(self, comment_id: int, text: str) -> comment_pb2.EditCommentResponse:
-        return self.call_rpc("EditComment", {"comment_id": comment_id, "text": text})  # type: ignore[return-value]
+        return await self.call_rpc("EditComment", {"comment_id": comment_id, "text": text})  # type: ignore
 
     async def delete_comment(self, comment_id: int) -> comment_pb2.DeleteCommentResponse:
-        return self.call_rpc("DeleteComment", {"comment_id": comment_id})  # type: ignore[return-value]
+        return await self.call_rpc("DeleteComment", {"comment_id": comment_id})  # type: ignore
 
     async def get_comments(self, mod_id: int) -> comment_pb2.GetCommentsResponse:
-        return self.call_rpc("GetComments", {"mod_id": mod_id})  # type: ignore[return-value]
+        return await self.call_rpc("GetComments", {"mod_id": mod_id})  # type: ignore

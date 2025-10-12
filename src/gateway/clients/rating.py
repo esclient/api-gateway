@@ -17,7 +17,7 @@ class RatingServiceClient(GRPCClient):
         self._stub = rating_pb2_grpc.RatingServiceStub(self._channel)  # type: ignore
 
     def _create_request(self, rpc_name: str, request_data: dict[str, Any]) -> _message.Message:
-        request_class = RatingServiceClient._RPC_REQUEST_CLASSES.get(rpc_name)
+        request_class = self._RPC_REQUEST_CLASSES.get(rpc_name)
         if not request_class:
             raise ValueError(f"Неизветсный RPC метод: {rpc_name}")
 
@@ -26,10 +26,10 @@ class RatingServiceClient(GRPCClient):
     # *** #
 
     def rate_mod(self, mod_id: int, author_id: int, rate: str) -> rating_pb2.RateModResponse:
-        return self.call_rpc("RateMod", {"mod_id": mod_id, "author_id": author_id, "rate": rate})  # type: ignore[return-value]
+        return self.call_rpc("RateMod", {"mod_id": mod_id, "author_id": author_id, "rate": rate})  # type: ignore
 
     def get_rates(self, mod_id: int) -> rating_pb2.GetRatesResponse:
-        return self.call_rpc("GetRates", {"mod_id": mod_id})  # type: ignore[return-value]
+        return self.call_rpc("GetRates", {"mod_id": mod_id})  # type: ignore
 
 
 class AsyncRatingServiceClient(AsyncGRPCClient):
@@ -42,7 +42,7 @@ class AsyncRatingServiceClient(AsyncGRPCClient):
         self._stub = rating_pb2_grpc.RatingServiceStub(self._channel)  # type: ignore
 
     def _create_request(self, rpc_name: str, request_data: dict[str, Any]) -> _message.Message:
-        request_class = RatingServiceClient._RPC_REQUEST_CLASSES.get(rpc_name)
+        request_class = self._RPC_REQUEST_CLASSES.get(rpc_name)
         if not request_class:
             raise ValueError(f"Неизветсный RPC метод: {rpc_name}")
 
@@ -51,7 +51,7 @@ class AsyncRatingServiceClient(AsyncGRPCClient):
     # *** #
 
     async def rate_mod(self, mod_id: int, author_id: int, rate: str) -> rating_pb2.RateModResponse:
-        return self.call_rpc("RateMod", {"mod_id": mod_id, "author_id": author_id, "rate": rate})  # type: ignore[return-value]
+        return await self.call_rpc("RateMod", {"mod_id": mod_id, "author_id": author_id, "rate": rate})  # type: ignore
 
     async def get_rates(self, mod_id: int) -> rating_pb2.GetRatesResponse:
-        return self.call_rpc("GetRates", {"mod_id": mod_id})  # type: ignore[return-value]
+        return await self.call_rpc("GetRates", {"mod_id": mod_id})  # type: ignore
