@@ -6,7 +6,7 @@ from ariadne import load_schema_from_path, make_executable_schema
 from ariadne.asgi import GraphQL
 from ariadne.explorer import ExplorerGraphiQL
 
-from gateway.clients.client_factory import GRPCClientFactory
+from gateway.clients.client_factory import GrpcClientFactory
 from gateway.resolvers.mutation.comment import comment_mutation
 from gateway.resolvers.mutation.mod import mod_mutation
 from gateway.resolvers.mutation.root import mutation
@@ -35,7 +35,11 @@ schema = make_executable_schema(
 )
 
 context_viewer = GQLContextViewer()
-clients_factory = GRPCClientFactory(settings)
+clients_factory = GrpcClientFactory(
+    comment_service_url=settings.comment_service_url,
+    mod_service_url=settings.mod_service_url,
+    rating_service_url=settings.rating_service_url,
+)
 
 app = GraphQL(schema, debug=True, explorer=ExplorerGraphiQL(), context_value=context_viewer.get_current)
 

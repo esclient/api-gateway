@@ -5,7 +5,7 @@ from typing import Any
 
 from graphql import GraphQLError
 
-from ..clients.base_client import GRPCError
+from ..clients.base_client import GrpcError
 
 
 def handle_grpc_errors(func: Callable) -> Callable:  # type: ignore
@@ -15,7 +15,7 @@ def handle_grpc_errors(func: Callable) -> Callable:  # type: ignore
         async def async_wrapper(*args, **kwargs) -> Any:  # type: ignore
             try:
                 return await func(*args, **kwargs)
-            except GRPCError as e:
+            except GrpcError as e:
                 raise GraphQLError(f"gRPC ошибка: {e}") from None
             except Exception as e:
                 raise GraphQLError(f"Неизвестная ошибка: {e}") from None
@@ -28,7 +28,7 @@ def handle_grpc_errors(func: Callable) -> Callable:  # type: ignore
         def sync_wrapper(*args, **kwargs) -> Any:  # type: ignore
             try:
                 return func(*args, **kwargs)
-            except GRPCError as e:
+            except GrpcError as e:
                 raise GraphQLError(f"gRPC ошибка: {e}") from None
             except Exception as e:
                 raise GraphQLError(f"Неизвестная ошибка: {e}") from None
