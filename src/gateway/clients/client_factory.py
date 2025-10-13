@@ -1,19 +1,19 @@
 import grpc
 
-from gateway.clients.comment import AsyncCommentServiceClient, CommentServiceClient
-from gateway.clients.mod import AsyncModServiceClient, ModServiceClient
-from gateway.clients.rating import AsyncRatingServiceClient, RatingServiceClient
+from gateway.clients.comment import CommentServiceClient
+from gateway.clients.mod import ModServiceClient
+from gateway.clients.rating import RatingServiceClient
 from gateway.settings import Settings
 
 
 class GRPCClientFactory:
     def __init__(self, settings: Settings) -> None:
         self._settings = settings
-        self._channels: dict[str, grpc.Channel] = {}  # На всякий случай
+        self._channels: dict[str, grpc.aio.Channel] = {}  # На всякий случай
 
     def _add_to_channels_if_needed(self, url: str) -> None:
         if url not in self._channels:
-            self._channels[url] = grpc.insecure_channel(url)
+            self._channels[url] = grpc.aio.insecure_channel(url)
 
     def get_comment_client(self) -> CommentServiceClient:
         url = self._settings.comment_service_url
@@ -32,38 +32,6 @@ class GRPCClientFactory:
         self._add_to_channels_if_needed(url)
 
         return RatingServiceClient(self._channels[url])
-
-    def close_all(self) -> None:
-        for channel in self._channels.values():
-            channel.close()
-
-
-class AsyncGRPCClientFactory:
-    def __init__(self, settings: Settings) -> None:
-        self._settings = settings
-        self._channels: dict[str, grpc.aio.Channel] = {}  # На всякий случай
-
-    def _add_to_channels_if_needed(self, url: str) -> None:
-        if url not in self._channels:
-            self._channels[url] = grpc.aio.insecure_channel(url)
-
-    def get_comment_client(self) -> AsyncCommentServiceClient:
-        url = self._settings.comment_service_url
-        self._add_to_channels_if_needed(url)
-
-        return AsyncCommentServiceClient(self._channels[url])
-
-    def get_mod_client(self) -> AsyncModServiceClient:
-        url = self._settings.mod_service_url
-        self._add_to_channels_if_needed(url)
-
-        return AsyncModServiceClient(self._channels[url])
-
-    def get_rating_client(self) -> AsyncRatingServiceClient:
-        url = self._settings.rating_service_url
-        self._add_to_channels_if_needed(url)
-
-        return AsyncRatingServiceClient(self._channels[url])
 
     async def close_all(self) -> None:
         for channel in self._channels.values():

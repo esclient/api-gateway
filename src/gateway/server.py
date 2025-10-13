@@ -6,7 +6,7 @@ from ariadne import load_schema_from_path, make_executable_schema
 from ariadne.asgi import GraphQL
 from ariadne.explorer import ExplorerGraphiQL
 
-from gateway.clients.client_factory import AsyncGRPCClientFactory
+from gateway.clients.client_factory import GRPCClientFactory
 from gateway.resolvers.mutation.comment import comment_mutation
 from gateway.resolvers.mutation.mod import mod_mutation
 from gateway.resolvers.mutation.root import mutation
@@ -35,17 +35,16 @@ schema = make_executable_schema(
 )
 
 context_viewer = GQLContextViewer()
-# sync_clients_factory = GRPCClientFactory(settings)
-async_clients_factory = AsyncGRPCClientFactory(settings)
+clients_factory = GRPCClientFactory(settings)
 
 app = GraphQL(schema, debug=True, explorer=ExplorerGraphiQL(), context_value=context_viewer.get_current)
 
 
 async def main():  # type: ignore
     logger.info("Инициализация gRPC клиентов...")
-    comment_client = async_clients_factory.get_comment_client()
-    mod_client = async_clients_factory.get_mod_client()
-    rating_client = async_clients_factory.get_rating_client()
+    comment_client = clients_factory.get_comment_client()
+    mod_client = clients_factory.get_mod_client()
+    rating_client = clients_factory.get_rating_client()
     logger.info("gRPC клиенты инициализированы.")
 
     context_viewer.clients = {
@@ -68,7 +67,7 @@ async def main():  # type: ignore
         await server.serve()
     finally:
         logger.info("Закрытие gRPC каналов...")
-        await async_clients_factory.close_all()
+        await clients_factory.close_all()
         logger.info("Все соединения закрыты.")
 
 
