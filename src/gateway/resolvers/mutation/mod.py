@@ -5,8 +5,9 @@ from ariadne import ObjectType
 from graphql import GraphQLResolveInfo
 from pydantic import BaseModel, field_validator
 
-from gateway.clients.mod import create_mod_rpc, set_status_mod_rpc
 from gateway.helpers.id_helper import validate_and_convert_id
+
+from ..grpc_error_wrapper import handle_grpc_errors
 
 mod_mutation = ObjectType("ModMutation")
 
@@ -36,9 +37,11 @@ class CreateModResult(BaseModel):
 
 
 @mod_mutation.field("createMod")
-def resolve_create_mod(parent: object, info: GraphQLResolveInfo, input: CreateModInput) -> dict[str, Any]:
+@handle_grpc_errors
+async def resolve_create_mod(parent: object, info: GraphQLResolveInfo, input: CreateModInput) -> dict[str, Any]:
     data = CreateModInput.model_validate(input)
-    resp = create_mod_rpc(data.title, data.author_id, data.filename, data.description)
+    client = info.context["clients"]["mod_service"]
+    resp = await client.create_mod(data.title, data.author_id, data.filename, data.description)
     return CreateModResult(mod_id=resp.mod_id, s3_key=resp.s3_key, upload_url=resp.upload_url).model_dump()
 
 
@@ -52,7 +55,9 @@ class SetStatusInput(BaseModel):
 
 
 @mod_mutation.field("setStatus")
-def resolve_set_status_mod(parent: object, info: GraphQLResolveInfo, input: SetStatusInput) -> bool:
+@handle_grpc_errors
+async def resolve_set_status_mod(parent: object, info: GraphQLResolveInfo, input: SetStatusInput) -> bool:
     data = SetStatusInput.model_validate(input)
-    resp = set_status_mod_rpc(data.mod_id, data.status.value)
-    return resp.success
+    client = info.context["clients"]["mod_service"]
+    resp = await client.set_status_mod(data.mod_id, data.status.value)
+    return resp.success  # type: ignore

@@ -5,8 +5,9 @@ from ariadne import ObjectType
 from graphql import GraphQLResolveInfo
 from pydantic import BaseModel, field_validator
 
-from gateway.clients.rating import rate_mod_rpc
 from gateway.helpers.id_helper import validate_and_convert_id
+
+from ..grpc_error_wrapper import handle_grpc_errors
 
 rating_mutation = ObjectType("RatingMutation")
 
@@ -35,7 +36,9 @@ class AddRateInput(BaseModel):
 
 
 @rating_mutation.field("addRate")
-def resolve_add_rate(parent: object, info: GraphQLResolveInfo, input: AddRateInput) -> str:
+@handle_grpc_errors
+async def resolve_add_rate(parent: object, info: GraphQLResolveInfo, input: AddRateInput) -> str:
     data = AddRateInput.model_validate(input)
-    resp = rate_mod_rpc(data.mod_id, data.author_id, data.rate.value)
+    client = info.context["clients"]["rating_service"]
+    resp = await client.rate_mod(data.mod_id, data.author_id, data.rate.value)
     return str(resp.rate_id)

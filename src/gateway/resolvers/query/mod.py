@@ -4,9 +4,10 @@ from ariadne import ObjectType
 from graphql import GraphQLResolveInfo
 from pydantic import BaseModel, field_validator
 
-from gateway.clients.mod import get_mod_download_link_rpc, get_mods_rpc
 from gateway.converters.mod_status_converter import proto_to_graphql_mod_status
 from gateway.helpers.id_helper import validate_and_convert_id
+
+from ..grpc_error_wrapper import handle_grpc_errors
 
 
 class GetModDownloadLinkInput(BaseModel):
@@ -21,15 +22,21 @@ mod_query = ObjectType("ModQuery")
 
 
 @mod_query.field("getModDownloadLink")
-def resolve_get_mod_download_link(parent: object, info: GraphQLResolveInfo, input: GetModDownloadLinkInput) -> str:
+@handle_grpc_errors
+async def resolve_get_mod_download_link(
+    parent: object, info: GraphQLResolveInfo, input: GetModDownloadLinkInput
+) -> str:
     data = GetModDownloadLinkInput.model_validate(input)
-    resp = get_mod_download_link_rpc(data.mod_id)
-    return resp.link_url
+    client = info.context["clients"]["mod_service"]
+    resp = await client.get_mod_download_link(data.mod_id)
+    return resp.link_url  # type: ignore
 
 
 @mod_query.field("getMods")
-def resolve_get_mods(parent: object, info: GraphQLResolveInfo) -> list[dict[str, Any]]:
-    resp = get_mods_rpc()
+@handle_grpc_errors
+async def resolve_get_mods(parent: object, info: GraphQLResolveInfo) -> list[dict[str, Any]]:
+    client = info.context["clients"]["mod_service"]
+    resp = await client.get_mods()
     return [
         {
             "id": item.id,
