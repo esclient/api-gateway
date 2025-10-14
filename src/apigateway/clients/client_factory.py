@@ -1,8 +1,8 @@
 import grpc
 
-from gateway.clients.comment import CommentServiceClient
-from gateway.clients.mod import ModServiceClient
-from gateway.clients.rating import RatingServiceClient
+from apigateway.clients.comment import CommentServiceClient
+from apigateway.clients.mod import ModServiceClient
+from apigateway.clients.rating import RatingServiceClient
 
 
 class GrpcClientFactory:

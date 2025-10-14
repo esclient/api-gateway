@@ -1,8 +1,5 @@
-
-
-from gateway.stubs import mod_pb2, mod_pb2_grpc
-
-from .base_client import GrpcClient
+from apigateway.clients.base_client import GrpcClient
+from apigateway.stubs.mod import mod_pb2, mod_pb2_grpc
 
 
 class ModServiceClient(GrpcClient):

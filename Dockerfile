@@ -16,9 +16,9 @@ RUN pip install --no-cache-dir pdm && \
     rm /tmp/req.txt
 
 COPY . .
-RUN chmod +x load_envs.sh
+RUN chmod +x tools/load_envs.sh
 
 ENV ENV=prod
 ENV PYTHONPATH=src
 
-CMD ["./load_envs.sh", "python", "-u", "-m", "gateway.server"]
+CMD ["./tools/load_envs.sh", "python", "-u", "-m", "apigateway.server"]

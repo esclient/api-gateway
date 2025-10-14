@@ -1,8 +1,5 @@
-
-
-from gateway.stubs import comment_pb2, comment_pb2_grpc
-
-from .base_client import GrpcClient
+from apigateway.clients.base_client import GrpcClient
+from apigateway.stubs.comment import comment_pb2, comment_pb2_grpc
 
 
 class CommentServiceClient(GrpcClient):

@@ -1,8 +1,5 @@
-
-
-from gateway.stubs import rating_pb2, rating_pb2_grpc
-
-from .base_client import GrpcClient
+from apigateway.clients.base_client import GrpcClient
+from apigateway.stubs.rating import rating_pb2, rating_pb2_grpc
 
 
 class RatingServiceClient(GrpcClient):

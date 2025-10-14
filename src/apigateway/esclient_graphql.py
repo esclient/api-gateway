@@ -1,6 +1,6 @@
 from typing import Any
 
-from gateway.clients.base_client import GrpcClient
+from apigateway.clients.base_client import GrpcClient
 
 
 class GQLContextViewer:

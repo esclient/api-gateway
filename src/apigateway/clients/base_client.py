@@ -1,12 +1,12 @@
 import logging
-from typing import Self
 from collections.abc import Awaitable, Callable
+from typing import Self
 
 import grpc
 import grpc.aio
 from google.protobuf import message as _message
 
-from ..helpers.retry import grpc_retry
+from apigateway.helpers.retry import grpc_retry
 
 logger = logging.getLogger(__name__)
 

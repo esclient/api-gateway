@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 
-if [ -f .env ]; then
+if [ "$ENV" = "prod" ] && [ -f .env ]; then
     export $(grep -v '^#' .env | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | sed 's/"//g' | sed "s/'//g" | xargs)
 fi
 
 CONFIG="configs/${ENV}.yaml"
 [ ! -f "$CONFIG" ] && echo "ERROR: Config not found: $CONFIG" >&2 && exit 1
 
-eval "$(yq eval 'to_entries | .[] | "export " + .key + "=\"" + (.value | tostring) + "\""' "$CONFIG")"
+eval "$(yq eval 'to_entries | .[] | "export " + .key + "='\''" + (.value | tostring) + "'\''"' "$CONFIG")"
 
 if [ "$ENV" = "dev" ]; then
     exec "$@"
@@ -71,4 +71,3 @@ for var in $(env | grep '{vault:' | cut -d= -f1); do
 done
 
 exec "$@"
-
