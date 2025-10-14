@@ -1,7 +1,7 @@
 set windows-shell := ["sh", "-c"]
 set dotenv-load := true
 
-COMMON_JUST_URL := 'https://raw.githubusercontent.com/esclient/tools/refs/heads/main/python/common.just'
+COMMON_JUST_URL := 'https://raw.githubusercontent.com/esclient/tools/refs/heads/main/api-gateway/common.just'
 LOAD_ENVS_URL := 'https://raw.githubusercontent.com/esclient/tools/refs/heads/main/load_envs.sh'
 
 PROTO_REPO := 'https://raw.githubusercontent.com/esclient/protos'
