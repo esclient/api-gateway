@@ -2,7 +2,7 @@ from collections.abc import Mapping
 from enum import StrEnum
 from typing import Final
 
-from gateway.stubs.mod_pb2 import ModStatus as ProtoModStatus
+from apigateway.stubs.mod.mod_pb2 import ModStatus as ProtoModStatus
 
 
 class GraphQLModStatus(StrEnum):

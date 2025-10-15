@@ -4,7 +4,7 @@ from ariadne import ObjectType
 from graphql import GraphQLResolveInfo
 from pydantic import BaseModel, field_validator
 
-from gateway.helpers.id_helper import validate_and_convert_id
+from apigateway.helpers.id_helper import validate_and_convert_id
 
 from ..grpc_error_wrapper import handle_grpc_errors
 

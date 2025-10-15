@@ -6,14 +6,14 @@ from ariadne import load_schema_from_path, make_executable_schema
 from ariadne.asgi import GraphQL
 from ariadne.explorer import ExplorerGraphiQL
 
-from gateway.clients.client_factory import GrpcClientFactory
-from gateway.resolvers.mutation.comment import comment_mutation
-from gateway.resolvers.mutation.mod import mod_mutation
-from gateway.resolvers.mutation.root import mutation
-from gateway.resolvers.query.comment import comment_query
-from gateway.resolvers.query.mod import mod_query
-from gateway.resolvers.query.root import query
-from gateway.settings import Settings
+from apigateway.clients.client_factory import GrpcClientFactory
+from apigateway.resolvers.mutation.comment import comment_mutation
+from apigateway.resolvers.mutation.mod import mod_mutation
+from apigateway.resolvers.mutation.root import mutation
+from apigateway.resolvers.query.comment import comment_query
+from apigateway.resolvers.query.mod import mod_query
+from apigateway.resolvers.query.root import query
+from apigateway.settings import Settings
 
 from .esclient_graphql import GQLContextViewer
 
@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 settings = Settings()
 
-type_defs = load_schema_from_path("src/gateway/schema")
+type_defs = load_schema_from_path("src/apigateway/schema")
 
 schema = make_executable_schema(
     type_defs,
