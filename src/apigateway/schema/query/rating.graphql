@@ -4,8 +4,11 @@ type RatingQuery {
 
 type RatesInfo {
     rates_total: Int!
-    likes: Int!
-    dislikes: Int!
+    rate_1: Int!
+    rate_2: Int!
+    rate_3: Int!
+    rate_4: Int!
+    rate_5: Int!
 }
 
 input GetRatesInput {

@@ -29,12 +29,11 @@ async def resolve_get_rates(
     client = info.context["clients"]["rating_service"]
     resp = await client.get_rates(data.mod_id)
     
-    # Calculating likes (rate_4 + rate_5) and dislikes (rate_1 + rate_2)
-    likes = resp.rate_4 + resp.rate_5
-    dislikes = resp.rate_1 + resp.rate_2
-    
     return {
         "rates_total": resp.rates_total,
-        "likes": likes,
-        "dislikes": dislikes,
+        "rate_1": resp.rate_1,
+        "rate_2": resp.rate_2,
+        "rate_3": resp.rate_3,
+        "rate_4": resp.rate_4,
+        "rate_5": resp.rate_5,
     }
