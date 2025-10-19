@@ -7,4 +7,5 @@ type Mutation {
 type Query {
     comment: CommentQuery
     mod: ModQuery
+    rating: RatingQuery
 }
