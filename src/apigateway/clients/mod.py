@@ -2,12 +2,16 @@ from apigateway.clients.base_client import GrpcClient
 from apigateway.stubs.mod import mod_pb2, mod_pb2_grpc
 
 
-class ModServiceClient(GrpcClient):
-    def _initialize_stub(self) -> None:
-        self._stub = mod_pb2_grpc.ModServiceStub(self._channel)  # type: ignore
+class ModServiceClient(GrpcClient[mod_pb2_grpc.ModServiceStub]):
+    def _initialize_stub(self) -> mod_pb2_grpc.ModServiceStub:
+        return mod_pb2_grpc.ModServiceStub(self._channel)  # type: ignore[no-untyped-call]
 
     async def create_mod(
-        self, title: str, author_id: int, filename: str, description: str
+        self,
+        title: str,
+        author_id: int,
+        filename: str,
+        description: str,
     ) -> mod_pb2.CreateModResponse:
         request = mod_pb2.CreateModRequest(title=title, author_id=author_id, filename=filename, description=description)
         return await self.call(self._stub.CreateMod, request)
