@@ -24,15 +24,15 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0crating.proto\x12\x06rating\"O\n\x0eRateModRequest\x12\x0e\n\x06mod_id\x18\x01 \x01(\x03\x12\x11\n\tauthor_id\x18\x02 \x01(\x03\x12\x1a\n\x04rate\x18\x03 \x01(\x0e\x32\x0c.rating.Rate\"\"\n\x0fRateModResponse\x12\x0f\n\x07rate_id\x18\x01 \x01(\x03\"!\n\x0fGetRatesRequest\x12\x0e\n\x06mod_id\x18\x01 \x01(\x03\"H\n\x10GetRatesResponse\x12\x13\n\x0brates_total\x18\x01 \x01(\x03\x12\r\n\x05likes\x18\x02 \x01(\x03\x12\x10\n\x08\x64islikes\x18\x03 \x01(\x03*X\n\x04Rate\x12\x14\n\x10RATE_UNSPECIFIED\x10\x00\x12\n\n\x06RATE_1\x10\x01\x12\n\n\x06RATE_2\x10\x02\x12\n\n\x06RATE_3\x10\x03\x12\n\n\x06RATE_4\x10\x04\x12\n\n\x06RATE_5\x10\x05\x32\x8a\x01\n\rRatingService\x12:\n\x07RateMod\x12\x16.rating.RateModRequest\x1a\x17.rating.RateModResponse\x12=\n\x08GetRates\x12\x17.rating.GetRatesRequest\x1a\x18.rating.GetRatesResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0crating.proto\x12\x06rating\"O\n\x0eRateModRequest\x12\x0e\n\x06mod_id\x18\x01 \x01(\x03\x12\x11\n\tauthor_id\x18\x02 \x01(\x03\x12\x1a\n\x04rate\x18\x03 \x01(\x0e\x32\x0c.rating.Rate\"\"\n\x0fRateModResponse\x12\x0f\n\x07rate_id\x18\x01 \x01(\x03\"!\n\x0fGetRatesRequest\x12\x0e\n\x06mod_id\x18\x01 \x01(\x03\"w\n\x10GetRatesResponse\x12\x13\n\x0brates_total\x18\x01 \x01(\x03\x12\x0e\n\x06rate_1\x18\x02 \x01(\x03\x12\x0e\n\x06rate_2\x18\x03 \x01(\x03\x12\x0e\n\x06rate_3\x18\x04 \x01(\x03\x12\x0e\n\x06rate_4\x18\x05 \x01(\x03\x12\x0e\n\x06rate_5\x18\x06 \x01(\x03*X\n\x04Rate\x12\x14\n\x10RATE_UNSPECIFIED\x10\x00\x12\n\n\x06RATE_1\x10\x01\x12\n\n\x06RATE_2\x10\x02\x12\n\n\x06RATE_3\x10\x03\x12\n\n\x06RATE_4\x10\x04\x12\n\n\x06RATE_5\x10\x05\x32\x8a\x01\n\rRatingService\x12:\n\x07RateMod\x12\x16.rating.RateModRequest\x1a\x17.rating.RateModResponse\x12=\n\x08GetRates\x12\x17.rating.GetRatesRequest\x1a\x18.rating.GetRatesResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'rating_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_RATE']._serialized_start=250
-  _globals['_RATE']._serialized_end=338
+  _globals['_RATE']._serialized_start=297
+  _globals['_RATE']._serialized_end=385
   _globals['_RATEMODREQUEST']._serialized_start=24
   _globals['_RATEMODREQUEST']._serialized_end=103
   _globals['_RATEMODRESPONSE']._serialized_start=105
@@ -40,7 +40,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_GETRATESREQUEST']._serialized_start=141
   _globals['_GETRATESREQUEST']._serialized_end=174
   _globals['_GETRATESRESPONSE']._serialized_start=176
-  _globals['_GETRATESRESPONSE']._serialized_end=248
-  _globals['_RATINGSERVICE']._serialized_start=341
-  _globals['_RATINGSERVICE']._serialized_end=479
+  _globals['_GETRATESRESPONSE']._serialized_end=295
+  _globals['_RATINGSERVICE']._serialized_start=388
+  _globals['_RATINGSERVICE']._serialized_end=526
 # @@protoc_insertion_point(module_scope)

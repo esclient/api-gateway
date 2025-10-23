@@ -22,13 +22,11 @@ rating_query = ObjectType("RatingQuery")
 
 @rating_query.field("getRates")
 @handle_grpc_errors
-async def resolve_get_rates(
-    parent: object, info: GraphQLResolveInfo, input: GetRatesInput
-) -> dict[str, int]:
+async def resolve_get_rates(parent: object, info: GraphQLResolveInfo, input: GetRatesInput) -> dict[str, int]:
     data = GetRatesInput.model_validate(input)
     client = info.context["clients"]["rating_service"]
     resp = await client.get_rates(data.mod_id)
-    
+
     return {
         "rates_total": resp.rates_total,
         "rate_1": resp.rate_1,

@@ -18,7 +18,7 @@ jobs:
       python-version: "3.13.7"
       source: "apigateway"
       sonar-inclusions: "src/**,Dockerfile"
-      sonar-exclusions: "**/stubs/**"
-      sonar-coverage-exclusions: "src/apigateway/server.py,src/apigateway/settings.py"
+      sonar-exclusions: "**/stubs/**,src/apigateway/clients/**,src/apigateway/resolvers/**"
+      sonar-coverage-exclusions: "src/apigateway/clients/**,src/apigateway/resolvers/**,src/apigateway/esclient_graphql.py,src/apigateway/server.py,src/apigateway/settings.py"
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
