@@ -43,11 +43,17 @@ class GetRatesRequest(_message.Message):
     def __init__(self, mod_id: _Optional[int] = ...) -> None: ...
 
 class GetRatesResponse(_message.Message):
-    __slots__ = ("rates_total", "likes", "dislikes")
+    __slots__ = ("rates_total", "rate_1", "rate_2", "rate_3", "rate_4", "rate_5")
     RATES_TOTAL_FIELD_NUMBER: _ClassVar[int]
-    LIKES_FIELD_NUMBER: _ClassVar[int]
-    DISLIKES_FIELD_NUMBER: _ClassVar[int]
+    RATE_1_FIELD_NUMBER: _ClassVar[int]
+    RATE_2_FIELD_NUMBER: _ClassVar[int]
+    RATE_3_FIELD_NUMBER: _ClassVar[int]
+    RATE_4_FIELD_NUMBER: _ClassVar[int]
+    RATE_5_FIELD_NUMBER: _ClassVar[int]
     rates_total: int
-    likes: int
-    dislikes: int
-    def __init__(self, rates_total: _Optional[int] = ..., likes: _Optional[int] = ..., dislikes: _Optional[int] = ...) -> None: ...
+    rate_1: int
+    rate_2: int
+    rate_3: int
+    rate_4: int
+    rate_5: int
+    def __init__(self, rates_total: _Optional[int] = ..., rate_1: _Optional[int] = ..., rate_2: _Optional[int] = ..., rate_3: _Optional[int] = ..., rate_4: _Optional[int] = ..., rate_5: _Optional[int] = ...) -> None: ...

@@ -18,3 +18,9 @@ def resolve_comment_root(obj: Any, info: GraphQLResolveInfo, **kwargs: Any) -> d
 @handle_grpc_errors
 def resolve_mod_root(obj: Any, info: GraphQLResolveInfo, **kwargs: Any) -> dict[str, Any]:
     return {}
+
+
+@query.field("rating")
+@handle_grpc_errors
+def resolve_rating_root(obj: Any, info: GraphQLResolveInfo, **kwargs: Any) -> dict[str, Any]:
+    return {}

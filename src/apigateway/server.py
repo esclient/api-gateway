@@ -9,9 +9,11 @@ from ariadne.explorer import ExplorerGraphiQL
 from apigateway.clients.client_factory import GrpcClientFactory
 from apigateway.resolvers.mutation.comment import comment_mutation
 from apigateway.resolvers.mutation.mod import mod_mutation
+from apigateway.resolvers.mutation.rating import rating_mutation
 from apigateway.resolvers.mutation.root import mutation
 from apigateway.resolvers.query.comment import comment_query
 from apigateway.resolvers.query.mod import mod_query
+from apigateway.resolvers.query.rating import rating_query
 from apigateway.resolvers.query.root import query
 from apigateway.settings import Settings
 
@@ -29,9 +31,11 @@ schema = make_executable_schema(
     query,
     comment_query,
     mod_query,
+    rating_query,
     mutation,
     comment_mutation,
     mod_mutation,
+    rating_mutation,
 )
 
 context_viewer = GQLContextViewer()

@@ -1,0 +1,16 @@
+type RatingQuery {
+    getRates(input: GetRatesInput!): RatesInfo!
+}
+
+type RatesInfo {
+    rates_total: Int!
+    rate_1: Int!
+    rate_2: Int!
+    rate_3: Int!
+    rate_4: Int!
+    rate_5: Int!
+}
+
+input GetRatesInput {
+    mod_id: ID!
+}

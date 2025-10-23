@@ -6,13 +6,13 @@ LOAD_ENVS_URL := 'https://raw.githubusercontent.com/esclient/tools/refs/heads/ma
 
 PROTO_REPO := 'https://raw.githubusercontent.com/esclient/protos'
 
-COMMENT_PROTO_TAG := 'v0.0.8'
+COMMENT_PROTO_TAG := 'v0.1.2'
 COMMENT_PROTO_NAME := 'comment.proto'
 
-USER_PROTO_TAG := 'v0.0.8'
+USER_PROTO_TAG := 'v0.1.2'
 USER_PROTO_NAME := 'user.proto'
 
-RATING_PROTO_TAG := 'v0.0.15'
+RATING_PROTO_TAG := 'v0.1.2'
 RATING_PROTO_NAME := 'rating.proto'
 
 MOD_PROTO_TAG := 'v0.1.2'

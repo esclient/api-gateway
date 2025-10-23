@@ -44,6 +44,11 @@ class UserServiceStub(object):
                 request_serializer=user__pb2.RegisterUserRequest.SerializeToString,
                 response_deserializer=user__pb2.RegisterUserResponse.FromString,
                 _registered_method=True)
+        self.VerifyUser = channel.unary_unary(
+                '/user.UserService/VerifyUser',
+                request_serializer=user__pb2.VerifyUserRequest.SerializeToString,
+                response_deserializer=user__pb2.VerifyUserResponse.FromString,
+                _registered_method=True)
 
 
 class UserServiceServicer(object):
@@ -61,6 +66,12 @@ class UserServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def VerifyUser(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_UserServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -73,6 +84,11 @@ def add_UserServiceServicer_to_server(servicer, server):
                     servicer.RegisterUser,
                     request_deserializer=user__pb2.RegisterUserRequest.FromString,
                     response_serializer=user__pb2.RegisterUserResponse.SerializeToString,
+            ),
+            'VerifyUser': grpc.unary_unary_rpc_method_handler(
+                    servicer.VerifyUser,
+                    request_deserializer=user__pb2.VerifyUserRequest.FromString,
+                    response_serializer=user__pb2.VerifyUserResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -129,6 +145,33 @@ class UserService(object):
             '/user.UserService/RegisterUser',
             user__pb2.RegisterUserRequest.SerializeToString,
             user__pb2.RegisterUserResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def VerifyUser(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/user.UserService/VerifyUser',
+            user__pb2.VerifyUserRequest.SerializeToString,
+            user__pb2.VerifyUserResponse.FromString,
             options,
             channel_credentials,
             insecure,

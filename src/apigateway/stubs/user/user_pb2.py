@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nuser.proto\x12\x04user\"?\n\x10LoginUserRequest\x12\x19\n\x11username_or_email\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"_\n\x13RegisterUserRequest\x12\r\n\x05login\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\x12\x18\n\x10\x63onfirm_password\x18\x04 \x01(\t\"$\n\x11LoginUserResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\"\'\n\x14RegisterUserResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x32\x92\x01\n\x0bUserService\x12<\n\tLoginUser\x12\x16.user.LoginUserRequest\x1a\x17.user.LoginUserResponse\x12\x45\n\x0cRegisterUser\x12\x19.user.RegisterUserRequest\x1a\x1a.user.RegisterUserResponseB\"Z github.com/esclient/user-serviceb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nuser.proto\x12\x04user\"?\n\x10LoginUserRequest\x12\x19\n\x11username_or_email\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"_\n\x13RegisterUserRequest\x12\r\n\x05login\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\x12\x18\n\x10\x63onfirm_password\x18\x04 \x01(\t\"?\n\x11VerifyUserRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x19\n\x11\x63onfirmation_code\x18\x02 \x01(\t\"$\n\x11LoginUserResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\"\'\n\x14RegisterUserResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\")\n\x12VerifyUserResponse\x12\x13\n\x0bis_verified\x18\x01 \x01(\x08\x32\xd3\x01\n\x0bUserService\x12<\n\tLoginUser\x12\x16.user.LoginUserRequest\x1a\x17.user.LoginUserResponse\x12\x45\n\x0cRegisterUser\x12\x19.user.RegisterUserRequest\x1a\x1a.user.RegisterUserResponse\x12?\n\nVerifyUser\x12\x17.user.VerifyUserRequest\x1a\x18.user.VerifyUserResponseB\"Z github.com/esclient/user-serviceb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -36,10 +36,14 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_LOGINUSERREQUEST']._serialized_end=83
   _globals['_REGISTERUSERREQUEST']._serialized_start=85
   _globals['_REGISTERUSERREQUEST']._serialized_end=180
-  _globals['_LOGINUSERRESPONSE']._serialized_start=182
-  _globals['_LOGINUSERRESPONSE']._serialized_end=218
-  _globals['_REGISTERUSERRESPONSE']._serialized_start=220
-  _globals['_REGISTERUSERRESPONSE']._serialized_end=259
-  _globals['_USERSERVICE']._serialized_start=262
-  _globals['_USERSERVICE']._serialized_end=408
+  _globals['_VERIFYUSERREQUEST']._serialized_start=182
+  _globals['_VERIFYUSERREQUEST']._serialized_end=245
+  _globals['_LOGINUSERRESPONSE']._serialized_start=247
+  _globals['_LOGINUSERRESPONSE']._serialized_end=283
+  _globals['_REGISTERUSERRESPONSE']._serialized_start=285
+  _globals['_REGISTERUSERRESPONSE']._serialized_end=324
+  _globals['_VERIFYUSERRESPONSE']._serialized_start=326
+  _globals['_VERIFYUSERRESPONSE']._serialized_end=367
+  _globals['_USERSERVICE']._serialized_start=370
+  _globals['_USERSERVICE']._serialized_end=581
 # @@protoc_insertion_point(module_scope)
