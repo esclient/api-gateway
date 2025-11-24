@@ -1,12 +1,15 @@
+from datetime import datetime
 from typing import Any
 
 from ariadne import ObjectType
 from graphql import GraphQLResolveInfo
 from pydantic import BaseModel, field_validator
 
+from apigateway.helpers.datetime_helper import timestamp_to_datetime
 from apigateway.helpers.id_helper import validate_and_convert_id
+from apigateway.resolvers.grpc_error_wrapper import handle_grpc_errors
 
-from ..grpc_error_wrapper import handle_grpc_errors
+comment_query = ObjectType("CommentQuery")
 
 
 class GetCommentsInput(BaseModel):
@@ -21,15 +24,16 @@ class GetCommentsResult(BaseModel):
     id: int
     text: str
     author_id: int
-    created_at: int
-    edited_at: int | None = None
+    created_at: datetime
+    edited_at: datetime | None = None
+
+    @field_validator("created_at", mode="before")
+    def _created_at(cls, value: Any) -> datetime:
+        return timestamp_to_datetime(value)
 
     @field_validator("edited_at", mode="before")
-    def _edited_at(cls, v: Any) -> Any | None:
-        return None if v == 0 else v
-
-
-comment_query = ObjectType("CommentQuery")
+    def _edited_at(cls, value: Any) -> datetime | None:
+        return timestamp_to_datetime(value)
 
 
 @comment_query.field("getComments")

@@ -1,3 +1,5 @@
+scalar DateTime
+
 type Mutation {
     comment: CommentMutation
     mod: ModMutation

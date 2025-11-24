@@ -17,7 +17,7 @@ type Mod {
   description: String!
   version: Int!
   status: ModStatus!
-  created_at: Int!
+  created_at: DateTime!
 }
 
 input getModDownloadLinkInput {

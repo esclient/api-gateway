@@ -15,6 +15,7 @@ from apigateway.resolvers.query.comment import comment_query
 from apigateway.resolvers.query.mod import mod_query
 from apigateway.resolvers.query.rating import rating_query
 from apigateway.resolvers.query.root import query
+from apigateway.resolvers.scalars import datetime_scalar
 from apigateway.settings import Settings
 
 from .esclient_graphql import GQLContextViewer
@@ -28,6 +29,7 @@ type_defs = load_schema_from_path("src/apigateway/schema")
 
 schema = make_executable_schema(
     type_defs,
+    datetime_scalar,
     query,
     comment_query,
     mod_query,
