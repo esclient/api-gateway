@@ -14,9 +14,9 @@ class CommentServiceClient(GrpcClient[comment_pb2_grpc.CommentServiceStub]):
         request = comment_pb2.EditCommentRequest(comment_id=comment_id, text=text)
         return await self.call(self._stub.EditComment, request)
 
-    async def delete_comment(self, comment_id: int) -> comment_pb2.DeleteCommentResponse:
-        request = comment_pb2.DeleteCommentRequest(comment_id=comment_id)
-        return await self.call(self._stub.DeleteComment, request)
+    async def set_status_comment(self, comment_id: int, status: str) -> comment_pb2.SetStatusResponse:
+        request = comment_pb2.SetStatusRequest(comment_id=comment_id, status=status)
+        return await self.call(self._stub.SetStatus, request)
 
     async def get_comments(self, mod_id: int) -> comment_pb2.GetCommentsResponse:
         request = comment_pb2.GetCommentsRequest(mod_id=mod_id)

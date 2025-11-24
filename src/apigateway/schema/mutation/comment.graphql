@@ -1,7 +1,7 @@
 type CommentMutation {
     createComment(input: CreateCommentInput!): ID!
     editComment(input: EditCommentInput!): Boolean!
-    deleteComment(input: DeleteCommentInput!): Boolean!
+    setStatus(input: CommentSetStatusInput!): Boolean!
 }
 
 input CreateCommentInput {
@@ -15,6 +15,7 @@ input EditCommentInput {
     text: String!
 }
 
-input DeleteCommentInput {
+input CommentSetStatusInput {
     comment_id: ID!
+    status: CommentStatus!
 }

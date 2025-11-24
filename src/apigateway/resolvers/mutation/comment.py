@@ -1,3 +1,4 @@
+from enum import StrEnum
 from typing import Any
 
 from ariadne import ObjectType
@@ -9,6 +10,13 @@ from apigateway.helpers.id_helper import validate_and_convert_id
 from ..grpc_error_wrapper import handle_grpc_errors
 
 comment_mutation = ObjectType("CommentMutation")
+
+
+class CommentStatus(StrEnum):
+    COMMENT_STATUS_UNSPECIFIED = "COMMENT_STATUS_UNSPECIFIED"
+    COMMENT_STATUS_DELETED = "COMMENT_STATUS_DELETED"
+    COMMENT_STATUS_HIDDEN = "COMMENT_STATUS_HIDDEN"
+    COMMENT_STATUS_ON_MODERATION = "COMMENT_STATUS_ON_MODERATION"
 
 
 class CreateCommentInput(BaseModel):
@@ -52,18 +60,19 @@ async def resolve_edit_comment(parent: object, info: GraphQLResolveInfo, input: 
     return resp.success  # type: ignore
 
 
-class DeleteCommentInput(BaseModel):
+class CommentSetStatusInput(BaseModel):
     comment_id: int
+    status: CommentStatus
 
     @field_validator("comment_id", mode="before")
     def _comment_id(cls, v: Any) -> int:
         return validate_and_convert_id(v, "comment_id")
 
 
-@comment_mutation.field("deleteComment")
+@comment_mutation.field("setStatus")
 @handle_grpc_errors
-async def resolve_delete_comment(parent: object, info: GraphQLResolveInfo, input: DeleteCommentInput) -> bool:
-    data = DeleteCommentInput.model_validate(input)
+async def resolve_set_status_comment(parent: object, info: GraphQLResolveInfo, input: CommentSetStatusInput) -> bool:
+    data = CommentSetStatusInput.model_validate(input)
     client = info.context["clients"]["comment_service"]
-    resp = await client.delete_comment(data.comment_id)
+    resp = await client.set_status_comment(data.comment_id, data.status.value)
     return resp.success  # type: ignore
