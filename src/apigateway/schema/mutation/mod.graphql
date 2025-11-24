@@ -6,7 +6,7 @@ type CreateModResult {
 
 type ModMutation {
     createMod(input: CreateModInput!): CreateModResult!
-    setStatus(input: SetStatusInput!): Boolean!
+    setStatus(input: ModSetStatusInput!): Boolean!
 }
 
 input CreateModInput {
@@ -16,7 +16,7 @@ input CreateModInput {
     description: String!
 }
 
-input SetStatusInput {
+input ModSetStatusInput {
     mod_id: ID!
     status: ModStatus!
 }

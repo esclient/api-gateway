@@ -2,6 +2,13 @@ type CommentQuery {
     getComments(input: GetCommentsInput!): [Comment]
 }
 
+enum CommentStatus {
+  COMMENT_STATUS_UNSPECIFIED
+  COMMENT_STATUS_DELETED
+  COMMENT_STATUS_HIDDEN
+  COMMENT_STATUS_ON_MODERATION
+}
+
 type Comment {
     id: ID!
     author_id: ID!
