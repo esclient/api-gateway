@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Any
 
 from ariadne import ObjectType
+from google.protobuf.timestamp_pb2 import Timestamp
 from graphql import GraphQLResolveInfo
 from pydantic import BaseModel, field_validator
 
@@ -28,11 +29,15 @@ class GetCommentsResult(BaseModel):
     edited_at: datetime | None = None
 
     @field_validator("created_at", mode="before")
-    def _created_at(cls, value: Any) -> datetime:
-        return timestamp_to_datetime(value)
+    def _created_at(cls, value: Timestamp) -> datetime:
+        created_at = timestamp_to_datetime(value)
+        if created_at is None:
+            raise ValueError("created_at is missing")
+
+        return created_at
 
     @field_validator("edited_at", mode="before")
-    def _edited_at(cls, value: Any) -> datetime | None:
+    def _edited_at(cls, value: Timestamp) -> datetime | None:
         return timestamp_to_datetime(value)
 
 
