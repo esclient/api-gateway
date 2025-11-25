@@ -6,8 +6,8 @@ type Comment {
     id: ID!
     author_id: ID!
     text: String!
-    created_at: Int!
-    edited_at: Int
+    created_at: DateTime!
+    edited_at: DateTime
 }
 
 input GetCommentsInput {
