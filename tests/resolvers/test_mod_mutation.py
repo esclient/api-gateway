@@ -46,8 +46,7 @@ async def test_create_mod_with_title_field() -> None:
     )
 
 
-@pytest.mark.asyncio
-async def test_create_mod_input_validation() -> None:
+def test_create_mod_input_validation() -> None:
     """Test that CreateModInput correctly validates and converts fields."""
     # Arrange
     input_data = {
