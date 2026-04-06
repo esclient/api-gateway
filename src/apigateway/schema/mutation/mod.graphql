@@ -10,7 +10,7 @@ type ModMutation {
 }
 
 input CreateModInput {
-    mod_title: String!
+    title: String!
     author_id: ID!
     filename: String!
     description: String!
